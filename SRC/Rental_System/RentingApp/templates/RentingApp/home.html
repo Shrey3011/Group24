@@ -1,0 +1,23 @@
+{% extends 'RentingApp/main.html' %}
+
+{% block content %}
+
+<a href="{% url 'customer' %}">customer_form</a>
+<br>
+<a href="{% url 'addvehicle' %}">Add vehicle</a>
+<br>
+<a href="{% url 'history' %}">History</a>
+<br>
+<a href="{% url 'requestpage' %}">Request</a>
+
+<br>
+<br>
+<h1>Vehicles</h1>
+{% for i in vehicle %}
+
+    <a href="{% url 'productview' i.id %}">{{i.model}}</a>
+    <br>
+
+{% endfor %}
+
+{% endblock %}

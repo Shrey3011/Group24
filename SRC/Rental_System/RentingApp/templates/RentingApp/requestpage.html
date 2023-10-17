@@ -1,0 +1,42 @@
+{% extends 'RentingApp/main.html' %}
+
+{% block content %}
+
+<h1>Request status</h1>
+<div class="row">
+
+    <div class="col-md">
+        <div class="card card-body">
+
+            <table class="table table-sm">
+                <tr>
+                    <th>Vehicle</th>
+                    <th>Start_date</th>
+                    <th>End_date</th>
+                    <th>Number of days</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                </tr>
+
+                {% for i in requests %}
+
+                <tr>
+                    <th>{{i.vehicle.model}}</th>
+                    <th>{{i.start_date}}</th>
+                    <th>{{i.end_date}}</th>
+                    <th>{{i.number_of_days}}</th>
+                    <th>{{i.total}}</th>
+                    <th>{{i.status}}</th>
+                    <th>{{i.vehicle.owner}}</th>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

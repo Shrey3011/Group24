@@ -1,0 +1,55 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+    <!-- company:
+    {{form.company}}
+    <br>
+
+    model:
+    {{form.model}}
+    <br>
+
+     fuel_type:
+    {{form.fuel_type}}
+    <br>
+
+    about:
+    {{form.about}}
+    <br>
+
+    seats:
+    {{form.seats}}
+    <br>
+
+    price:
+    {{form.price}}
+    <br>
+
+    tags:
+    {{form.tags}}
+    <br>
+
+    city:
+    {{form.city}}
+    <br>
+
+    state:
+    {{form.state}}
+    <br>
+
+    image:
+    {{form.image}}
+    <br> -->
+
+    {{form.as_p}}
+
+    <input type="submit" name="Submit">
+
+</form>
+
+{% endblock %}
