@@ -1,0 +1,23 @@
+{% extends 'RentingApp/main.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+    {% for i in vehicle %}
+    <!-- -->
+    <div class="col-sm-4 my-4">
+    <div class="card Boxshadow h-100" style="width: 18rem;">
+    <img class="d-block w-100" src="{{i.image.url}}" alt="First slide" style="height:200px">
+    Model : {{i.model}}<br>
+    Price(per day) : {{i.price}} 
+    <br>
+    <a href="{% url 'myvehicleview' i.id %}">Full View</a>
+    <br>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}
