@@ -1,0 +1,53 @@
+{% extends 'RentingApp/main.html' %}
+
+
+{% block content %}
+
+<div>
+    <form action="{% url 'search_vehicle_filter' %}" method="POST">
+        {% csrf_token %}
+        fuel_type: 
+        <br>     
+        <input type="checkbox" name="petrol"> petrol
+        <input type="checkbox" name="diesel"> diesel
+        <input type="checkbox" name="Electric"> Electric
+        <input type="checkbox" name="Hybrid"> Hybrid
+        <br>
+        Price:
+        <br>
+        <input type="number" name="num1"> greater then and
+        <input type="number" name="num2"> less then
+        <br>
+        seats:
+        <br>
+        <input type="number" name="seat">
+        <br>
+        <input type="hidden" name="searched_v" value="{{searched}}">
+        <button class="btn btn-outline-primary" type="submit">
+            Search
+        </button>
+
+    </form>
+</div>
+<br>
+<br>
+
+
+    {% if searched %}
+    <h4>Your search result for {{searched}} is ...</h4>
+
+    {% else %}
+    <h4>You forgot to search</h4>
+    {% endif %}
+
+    {% for i in vehicles %}
+
+    <a href="{% url 'productview' i.id %}">{{i.model}}</a>
+    <br>
+
+    {% endfor %}
+
+
+
+
+{% endblock %}
