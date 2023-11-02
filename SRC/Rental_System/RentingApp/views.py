@@ -151,7 +151,8 @@ def history(request):
 def requestpage(request):
     customer=request.user.customer
     requests=Request_rent.objects.all()
-    requests=requests.filter(seeker=customer)
-    context={'requests':requests}
+    requests1=requests.filter(seeker=customer)
+    requests2=requests.filter(owner=customer)
+    context={'requests1':requests1,'requests2':requests2}
     return render(request,'RentingApp/requestpage.html',context)
 
