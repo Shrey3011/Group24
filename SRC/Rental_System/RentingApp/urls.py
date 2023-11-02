@@ -16,4 +16,5 @@ urlpatterns = [
     path('productview/<str:pk>/',views.productview,name='productview'),
     path('history',views.history,name='history'),
     path('requestpage',views.requestpage,name='requestpage'),
+    path('search_vehicle',views.search_vehicle,name='search_vehicle'),
 ]
