@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group
 from django.contrib.auth  import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
@@ -150,7 +151,8 @@ def history(request):
 def requestpage(request):
     customer=request.user.customer
     requests=Request_rent.objects.all()
-    requests=requests.filter(seeker=customer)
-    context={'requests':requests}
+    requests1=requests.filter(seeker=customer)
+    requests2=requests.filter(owner=customer)
+    context={'requests1':requests1,'requests2':requests2}
     return render(request,'RentingApp/requestpage.html',context)
 
