@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Request status</h1>
+<h1>Your Requests</h1>
 <div class="row">
 
     <div class="col-md">
@@ -29,6 +29,43 @@
                     <th>{{i.total}}</th>
                     <th>{{i.status}}</th>
                     <th>{{i.vehicle.owner}}</th>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<h1>Your Vehicle's requests</h1>
+<div class="row">
+
+    <div class="col-md">
+        <div class="card card-body">
+
+            <table class="table table-sm">
+                <tr>
+                    <th>Vehicle</th>
+                    <th>Start_date</th>
+                    <th>End_date</th>
+                    <th>Number of days</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Seeker</th>
+                </tr>
+
+                {% for i in requests2 %}
+
+                <tr>
+                    <th>{{i.vehicle.model}}</th>
+                    <th>{{i.start_date}}</th>
+                    <th>{{i.end_date}}</th>
+                    <th>{{i.number_of_days}}</th>
+                    <th>{{i.total}}</th>
+                    <th>{{i.status}}</th>
+                    <th>{{i.seeker}}</th>
                 </tr>
 
                 {% endfor %}
