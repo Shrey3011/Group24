@@ -18,7 +18,7 @@ class Customer(models.Model):
     city=models.CharField(max_length=30,null=True)
     state=models.CharField(max_length=30,null=True)
     country=models.CharField(max_length=30,null=True)
-    profile_pic=models.ImageField(null=True, blank=True)
+    profile_pic=models.ImageField(default='default_profile_picture.png', blank=True)
     date_created=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
