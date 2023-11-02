@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group
 from django.contrib.auth  import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
