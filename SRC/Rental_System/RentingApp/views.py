@@ -24,12 +24,16 @@ def register(request):
         if form.is_valid():
             user= form.save()
             username= form.cleaned_data.get('username')
+            firstname=form.cleaned_data.get('firstname')
+            lastname=form.cleaned_data.get('lastname')
 
             group=Group.objects.get(name='customer')
             user.groups.add(group)
             Customer.objects.create(
                 user=user,
-                email=user.email
+                email=user.email,
+                firstname=firstname,
+                lastname=lastname
             )
             messages.success(request,'Account was created for ' + username)
             return redirect('login')
