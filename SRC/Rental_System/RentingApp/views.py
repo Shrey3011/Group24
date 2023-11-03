@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import Group
 from django.contrib.auth  import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
@@ -150,7 +151,118 @@ def history(request):
 def requestpage(request):
     customer=request.user.customer
     requests=Request_rent.objects.all()
-    requests=requests.filter(seeker=customer)
-    context={'requests':requests}
+    requests1=requests.filter(seeker=customer)
+    requests2=requests.filter(owner=customer)
+    context={'requests1':requests1,'requests2':requests2}
     return render(request,'RentingApp/requestpage.html',context)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+           
+            update_session_auth_hash(request, user)
+            return redirect('home')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'RentingApp/change_password.html', {'form': form})
+def search_vehicle(request):
+    
+    if request.method=='POST':
+        searched=request.POST['searched']
+        # searched = request.POST.get('searched', False)
+        vehicle=Vehicle.objects.filter((Q(model__contains=searched) | Q(company__contains=searched) | Q(city__contains=searched)))
+        vehicle=vehicle.filter(status='Available')
+        customer=request.user.customer
+        vehicles=[]
+        for i in vehicle:
+            if i.owner!=customer:
+                vehicles.append(i)
+    
+        context={'searched':searched,'vehicles':vehicles}
+        return render(request,'RentingApp/search.html',context)
+    else:
+        context={}
+        return render(request,'RentingApp/search.html',context)
+
+@login_required(login_url='login')
+def search_vehicle_filter(request):
+    
+    if request.method=='POST':
+        searched=request.POST.get('searched_v')
+        petrol=request.POST.get('petrol')
+        diesel=request.POST.get('diesel')
+        electric=request.POST.get('Electric')
+        hybrid=request.POST.get('Hybrid')
+        num1=request.POST.get('num1')
+        num2=request.POST.get('num2')
+        seats=request.POST.get('seat')
+        print(petrol,' ',diesel,' ',electric,' ',hybrid)
+        print(type(num1),' ',num2)
+        print(seats)
+        vehicle=Vehicle.objects.filter(Q(model__contains=searched) | Q(company__contains=searched) | Q(city__contains=searched))
+        vehicle=vehicle.filter(status='Available')
+        customer=request.user.customer
+        vehicles=[]
+        for i in vehicle:
+            if i.owner!=customer:
+                vehicles.append(i)
+
+        vehicle=vehicles
+        if (num1!='') & (num2!=''):
+            vehicle=vehicle.filter(price__gte=int(num1),price__lte=int(num2))
+        elif num1!='':
+            vehicle=vehicle.filter(price__gte=int(num1))
+        elif num2!='':
+            vehicle=vehicle.filter(price__lte=int(num2))
+        else:
+            vehicle=vehicle
+
+        vehicles=[]
+        flag=0
+        if (petrol is None) & (diesel is None) & (electric is None) & (hybrid is None):
+            flag=1
+            vehicle=vehicle
+        else:
+            for i in vehicle:
+
+                if (petrol is not None):
+                    if i.fuel_type=='Petrol':
+                        vehicles.append(i)
+
+                if diesel is not None:
+                    if i.fuel_type=='Diesel':
+                        vehicles.append(i)
+
+                if electric is not None:
+                    if i.fuel_type=='Electric':
+                        vehicles.append(i)
+            
+                if hybrid is not None:
+                    if i.fuel_type=='Hybrid':
+                        vehicles.append(i)
+        
+        if (len(vehicles)==0) & (seats=='') & (flag==1):
+            vehicles=vehicle
+        elif (seats==''):
+            vehicles=vehicles
+        elif (len(vehicles)==0):
+            for i in vehicle:
+                if (int(seats)==i.seats):
+                    vehicles.append(i)
+        else:
+            for i in vehicles:
+                if (int(seats)!=i.seats):
+                    vehicles.remove(i)
+
+        print(vehicles)
+        context={'searched':searched,'vehicles':vehicles}
+        return render(request,'RentingApp/search.html',context)
+    else:
+        context={}
+        return render(request,'RentingApp/search.html',context)
+
+    
 

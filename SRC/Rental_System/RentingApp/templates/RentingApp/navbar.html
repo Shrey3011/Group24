@@ -16,6 +16,14 @@
             <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
           </li>
 
+            <form method="POST" action="{% url 'search_vehicle' %}" >
+        {% csrf_token %}
+        <input type="search" id="form1" placeholder="search" class="form-control" name="searched">
+
+        <button class="btn btn-outline-primary" type="submit">
+          search
+        </button>
+      </form>
   
         </ul>
       </div>
