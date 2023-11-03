@@ -157,6 +157,17 @@ def requestpage(request):
     return render(request,'RentingApp/requestpage.html',context)
 
 @login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+           
+            update_session_auth_hash(request, user)
+            return redirect('home')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'RentingApp/change_password.html', {'form': form})
 def search_vehicle(request):
     
     if request.method=='POST':
