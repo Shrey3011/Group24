@@ -12,12 +12,24 @@
 
 <br>
 <br>
-<h1>Vehicles</h1>
-{% for i in vehicle %}
+<h1>Welcome to EasyRent service</h1>
+<div class="container">
+    <div class="row">
 
-    <a href="{% url 'productview' i.id %}">{{i.model}}</a>
+        {% for i in vehicle %}
+    <!-- -->
+    <div class="col-sm-4 my-4">
+    <div class="card Boxshadow h-100" style="width: 18rem;">
+    <img class="d-block w-100" src="{{i.image.url}}" alt="First slide" style="height:200px">
+    Model : {{i.model}}<br>
+    Price(per day) : {{i.price}} 
     <br>
+    <a href="{% url 'productview' i.id %}">Show details</a>
+    <br>
+    </div>
+</div>
 
 {% endfor %}
-
+</div>
+</div>
 {% endblock %}

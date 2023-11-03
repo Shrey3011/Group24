@@ -151,8 +151,9 @@ def history(request):
 def requestpage(request):
     customer=request.user.customer
     requests=Request_rent.objects.all()
-    requests=requests.filter(seeker=customer)
-    context={'requests':requests}
+    requests1=requests.filter(seeker=customer)
+    requests2=requests.filter(owner=customer)
+    context={'requests1':requests1,'requests2':requests2}
     return render(request,'RentingApp/requestpage.html',context)
 
 @login_required(login_url='login')
@@ -167,4 +168,23 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'RentingApp/change_password.html', {'form': form})
+def search_vehicle(request):
+    
+    if request.method=='POST':
+        searched=request.POST['searched']
+        # searched = request.POST.get('searched', False)
+        vehicle=Vehicle.objects.filter((Q(model__contains=searched) | Q(company__contains=searched) | Q(city__contains=searched)))
+        vehicle=vehicle.filter(status='Available')
+        customer=request.user.customer
+        vehicles=[]
+        for i in vehicle:
+            if i.owner!=customer:
+                vehicles.append(i)
+    
+        context={'searched':searched,'vehicles':vehicles}
+        return render(request,'RentingApp/search.html',context)
+    else:
+        context={}
+        return render(request,'RentingApp/search.html',context)
+    
 
