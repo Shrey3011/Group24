@@ -20,4 +20,6 @@ urlpatterns = [
     path('search_vehicle',views.search_vehicle,name='search_vehicle'),
     path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter')
     path('profile/',views.Profile,name='Profile'),
+    path('myvehicle/', views.myvehicle, name='myvehicle'),
+    path('myvehicleview/<str:pk>', views.myvehicleview, name='myvehicleview'),
 ]
