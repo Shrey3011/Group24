@@ -18,6 +18,6 @@ urlpatterns = [
     path('requestpage',views.requestpage,name='requestpage'),
     path('change_password/', views.change_password, name='change_password'),
     path('search_vehicle',views.search_vehicle,name='search_vehicle'),
-    path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter'),
-
+    path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter')
+    path('profile/',views.Profile,name='Profile'),
 ]
