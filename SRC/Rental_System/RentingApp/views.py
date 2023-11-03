@@ -264,5 +264,10 @@ def search_vehicle_filter(request):
         context={}
         return render(request,'RentingApp/search.html',context)
 
+@login_required(login_url='login')
+def Profile(request):
+    #customer = Customer.objects.get(customer_object=customer_object)
+    customer=request.user.customer
+    return render(request,'RentingApp/Profile.html',{'customer':customer})
     
 
