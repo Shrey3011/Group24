@@ -1,0 +1,79 @@
+<html>
+<head>
+   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+   <script>
+      $(function() {
+         $("#includeHtml").load("navbar.html");
+      });
+   </script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+   <style>
+    body {
+      background-color: #f8f9fa;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .th {
+  display: flex;
+  align-items: center;
+}
+.table th,
+.table td {
+  text-align: center; /* Center text horizontally */
+  vertical-align: middle; /* Center text vertically */
+}
+  </style>
+</head>
+<body>
+    <div id="includeHtml"></div>
+    <div class="container-fluid">
+        <div class="container">
+          <h2 class="mb-4">History</h2>
+          <div class="table-responsive">
+            <table class="table border-bottom" >
+              <thead>
+                <tr>
+                  <th scope="col">Vehicle</th>
+                  <th scope="col">Vehicle_Name</th>
+                  <th scope="col">Start_date</th>
+                  <th scope="col">End_date</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Seeker</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
+                  <td><a href="#!">creta</a></td>
+                  <td>Sept.26,2023</td>
+                  <td>Sept.30,2023</td>
+                  <td>6000</td>
+                  <td><a href="#!">test3_customer</a></td>
+                </tr>
+                <tr>
+                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
+                  <td><a href="#!">swift</a></td>
+                  <td>Sept.28,2023</td>
+                  <td>Sept.29,2023</td>
+                  <td>1400</td>
+                  <td><a href="#!">test3_customer</a></td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
