@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(function () {
+            $("#includeHtml").load("navbar.html");
+        });
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="includeHtml"></div>
+
+    <style>
+        .btn {
+            margin-bottom: 5px;
+        }
+
+        .grid {
+            height: 100%;
+            position: relative;
+            width: 100%;
+            background: #fff;
+            color: #666666;
+            border-radius: 2px;
+            margin-bottom: 25px;
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid .grid-body {
+            padding: 10px 0px 10px 15px;
+            font-size: 0.9em;
+            line-height: 1.9em;
+        }
+
+        .search table tr td.rate {
+            color: #f39c12;
+            line-height: 50px;
+        }
+
+        .search table tr:hover {
+            cursor: pointer;
+        }
+
+        .search table tr td.image {
+            width: 50px;
+        }
+
+        .search table tr td img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .search table tr td.rate {
+            color: #f39c12;
+            line-height: 50px;
+        }
+
+        .search table tr td.price {
+            font-size: 1.5em;
+            line-height: 50px;
+        }
+
+        .search #price1,
+        .search #price2 {
+            display: inline;
+            font-weight: 600;
+        }
+
+        .A1 {
+            margin-left: 5vh;
+            margin-top: 3vh;
+        }
+    </style>
+    <section class="">
+    <div class="container" style="margin-left: 0px;position: fixed;">
+        <div class="row">
+          
+            <!-- BEGIN SEARCH RESULT -->
+            <div class="col-md-3">
+                <div class="grid search">
+                    <div class="grid-body">
+                        <div class="row">
+                            <!-- BEGIN FILTERS -->
+                            <div class="col-md-3">
+                                <h2 class="grid-title">Filters </h2>
+                                <hr>
+
+                                <h4>Fuel_type:</h4>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="icheck"> Petrol</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="icheck"> Diesel</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="icheck"> EV</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="icheck"> Hybrid</label>
+                                </div>
+
+                                <div class="padding"></div>
+                                <!-- <h4>By</h4> -->
+                                <h4>Price:</h4>
+
+                                <!-- <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z"
+                                    data-date-format="dd-mm-yyyy" data-link-field="dtp_input1"> -->
+                                    <!-- <input type="text" class="form-control"> -->
+                                    <input type="text" id="searchInput" placeholder="Min Price" style="width: 75px;margin-left: 0px;" >
+                                    <!-- <button type="button" onclick="searchFunction()">Search</button> -->
+                                    <!-- <span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span> -->
+                                <!-- </div> -->
+                                <!-- <input type="hidden" id="dtp_input1" value="" style="padding: 0%;"> -->
+                                <!-- Greater_then -->
+                                <span>to</span>
+
+                                <!-- <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z"
+                                    data-date-format="dd-mm-yyyy" data-link-field="dtp_input2"> -->
+                                    <!-- <input type="text" class="form-control"> -->
+                                    <input type="text" id="searchInput" placeholder="Max Price" style="width: 75px;margin-left: 0px;" >
+                                    <!-- <button type="button" onclick="searchFunction()">Search</button> -->
+                                    <!-- <span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span> -->
+                                <!-- </div> -->
+                                <input type="hidden" id="dtp_input2" value="">
+                                
+
+                                <div class="padding"></div>
+                                <h4>Seats:</h4>
+
+                                <!-- <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z"
+                                    data-date-format="dd-mm-yyyy" data-link-field="dtp_input1">
+                                    <input type="text" class="form-control"> -->
+                                    <input type="text" id="searchInput" placeholder="No of Seats..." style="width: 100px;margin-left: 0px;" >
+                                    <!-- <button type="button" onclick="searchFunction()">Search</button> -->
+                                    <!-- <span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span> -->
+                                </div>
+                                <div>
+                                    <button class="A1" type="button" onclick="searchFunction()">Search</button>
+                                </div>
+                                <input type="hidden" id="dtp_input1" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+  </div>
+    <!-- <section> -->
+    
+<div class="container my-xl-5" style="margin-top: 50%;margin-right: 50px;">
+
+    <div class="row" style="margin-left: 220px;">
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">GoPro HERO6 4K Action Camera - Black</h5>
+            <p class="card-text">$790.50</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+             
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Canon camera 20x zoom, Black color EOS 2000</h5>
+            <p class="card-text">$320.00</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Xiaomi Redmi 8 Original Global Version 4GB</h5>
+            <p class="card-text">$120.00</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Apple iPhone 12 Pro 6.1" RAM 6GB 512GB Unlocked</h5>
+            <p class="card-text">$120.00</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Apple Watch Series 1 Sport Case 38mm Black</h5>
+            <p class="card-text">$790.50</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">T-shirts with multiple colors, for men and lady</h5>
+            <p class="card-text">$120.00</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Gaming Headset 32db Blackbuilt in mic</h5>
+            <p class="card-text">$99.50</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+        <div class="card w-100 my-2 shadow-2-strong">
+          <img src="images/product_01.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">T-shirts with multiple colors, for men and lady</h5>
+            <p class="card-text">$120.00</p>
+            <div class="card-footer mt-auto" style="background-color: white;border: 0cap;"> 
+              <a href="#!" class="btn btn-primary shadow-none me-auto">Add to cart</a>
+              <!-- <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  
+</section>
+<!-- </section> -->
+</body>

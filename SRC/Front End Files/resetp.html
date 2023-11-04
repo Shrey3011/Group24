@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script>
+    $(function() {
+       $("#includeHtml").load("navbar.html");
+    });
+ </script>
+</head>
+<body>
+    <div id="includeHtml"></div>    
+  <style>
+    body {
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #F5F5F5;
+    }
+  
+    .container {
+      text-align: center;
+      font-family: 'Josefin Slab', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    h1 {
+      font-size: 70px;
+    }
+  
+    .reset-password-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .input-box {
+      background-color: #BFC0C0;
+      width: 480px;
+      height: 71px;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: right;
+    }
+  
+    .input-box label {
+      font-size: 25px;
+    }
+  
+    .input-box input {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+  
+    
+  
+  </style>
+  <div class="container d-sm-grid" style="margin-top: 20px;">
+    <h1>Reset Your Password</h1>
+    <form class="reset-password-form">
+      
+      <div class="input-box">
+        <label for="new-password">New Password:</label>
+        <input type="password" id="new-password" name="new-password" placeholder="Enter your new password">
+      </div>
+      <div class="input-box">
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password">
+      </div>
+      <button type="submit" class="btn-submit" style="background-color: #EF8354;color: #000000;padding: 10px 10px; border: none; border-radius: 5px;
+      cursor: pointer;font-size: 35px;width: 160px;height: 80px;align-items: center;font-family: 'Josefin Slab', sans-serif;margin: 15px 0;">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
