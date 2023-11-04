@@ -283,3 +283,11 @@ def myvehicleview(request , pk):
     context={'vehicle':vehicle}
     return render(request,'RentingApp/myvehicleview.html',context)
 
+@login_required(login_url='login')
+def profilepath(request,pk):
+    customer = Customer.objects.get(id=pk)
+
+    
+    context={'customer':customer}
+    return render(request, 'RentingApp/profilepath.html', context)
+
