@@ -1,0 +1,109 @@
+
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Profile Image -->
+        <div class="col-sm-4">
+            <div class="card p-2" style="width: auto;">
+                <img class="card-img-top" src="{{customer.profile_pic.url}}" alt="Your Profile Photo">
+                <div class="card-body">
+                    <h6 class="card-title">Profile Photo</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information -->
+        <div class="col-sm-8">
+            <div class="card p-2" style="width: auto;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">First Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.firstname}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Last Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.lastname}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.email}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Register date</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.date_created}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Gender</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.gender}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Mobile Number</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.contact_no}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">City</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.city}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">State</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.state}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Country</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{customer.country}}
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

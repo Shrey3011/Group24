@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add For Rent</title>
+    <link href="add.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("navbar.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <!--Basic Info-->
+    <h1 class="basic">Basic Info</h1>
+    <form method="post" action="">
+        <!-- Basic Info Form -->
+        <div class="form">
+            <fieldset class="basicinfo">
+                <input type="text" class="txtbox" name="company" placeholder="Company:" required>
+                <input type="text" class="txtbox" name="model" placeholder="Model:" required>
+                <select class="fuel" name="fuel" placeholder="Fuel type:" required>
+                    <option value="petrol">Petrol</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+                <input type="number" class="txtbox" min="1" name="capacity" placeholder="Seating Capacity:" required>
+                <input type="text" class="txtbox" name="city" placeholder="City:" required>
+                <input type="text" class="txtbox" name="state" placeholder="State:" required>
+                <textarea class="addinfo" name="addinfo" placeholder="Additional Info:" rows="4"></textarea>
+                <input type="number" class="txtbox" name="price" placeholder="Price (per day):" required><br>
+                <label class="img">Image: <input type="file" class="im" name="img" required></label>
+            </fieldset>
+        </div>
+
+        <!-- Accessories Form-->
+        <h1 class="basic">Accessories</h1>
+        <div class="form">
+            <fieldset class="basicinfo">
+                <label class="acces"><input type="checkbox" class="abx" name="a1"> Air Conditioner</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a2"> Power Steering</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a3"> CD Player</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a4"> Bluetooth</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a5"> Reverse Camera</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a6"> Dash Camera</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a7"> Drive Airbag</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a8"> Passenger Airbag</label>
+                <label class="acces"><input type="checkbox" class="abx" name="a9"> Crash Sensors</label>
+            </fieldset>
+        </div>
+
+        <!-- Terms and Condition -->
+        <div class="terms">
+            <fieldset class="cbox">
+                <label><input type="checkbox" class="cbx" name="checkbox1" required> I hereby declare that the information
+                provided is true to the best of my knowledge. I also understand that any willful dishonesty may render
+                for refusal of this application or immediate termination of my account.</label><br><br>
+                <label><input type="checkbox" class="cbx" name="checkbox2" required> I have read and agree to the Terms and
+                Conditions.</label>
+            </fieldset>
+        </div><br><br>
+
+        <input type="submit" value="Submit" class="submit">
+    </form>
+    <!--end of Basic Info-->
+</body>
+</html>

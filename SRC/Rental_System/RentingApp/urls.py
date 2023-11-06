@@ -18,6 +18,10 @@ urlpatterns = [
     path('requestpage',views.requestpage,name='requestpage'),
     path('change_password/', views.change_password, name='change_password'),
     path('search_vehicle',views.search_vehicle,name='search_vehicle'),
-    path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter'),
-
+    path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter')
+    path('profile/',views.Profile,name='Profile'),
+    path('myvehicle/', views.myvehicle, name='myvehicle'),
+    path('myvehicleview/<str:pk>', views.myvehicleview, name='myvehicleview'),
+    path('profilepath/<str:pk>/',views.profilepath,name='profilepath'),
+    path('edit_vehicle/<str:pk>', views.edit_vehicle, name='edit_vehicle'),
 ]
