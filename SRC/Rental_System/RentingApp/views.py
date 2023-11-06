@@ -12,6 +12,22 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from .decorators import *
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from datetime import date
+from django.contrib.auth.models import User,auth
+
+
 
 # Create your views here.
 
