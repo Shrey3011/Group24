@@ -168,6 +168,8 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'RentingApp/change_password.html', {'form': form})
+
+@login_required(login_url='login')
 def search_vehicle(request):
     
     if request.method=='POST':
@@ -204,65 +206,75 @@ def search_vehicle_filter(request):
         print(seats)
         vehicle=Vehicle.objects.filter(Q(model__contains=searched) | Q(company__contains=searched) | Q(city__contains=searched))
         vehicle=vehicle.filter(status='Available')
-        customer=request.user.customer
-        vehicles=[]
-        for i in vehicle:
-            if i.owner!=customer:
-                vehicles.append(i)
+        
 
-        vehicle=vehicles
+        vehicles1=[]
         if (num1!='') & (num2!=''):
-            vehicle=vehicle.filter(price__gte=int(num1),price__lte=int(num2))
+            vehicle1=vehicle.filter(price__gte=int(num1),price__lte=int(num2))
         elif num1!='':
-            vehicle=vehicle.filter(price__gte=int(num1))
+            vehicle1=vehicle.filter(price__gte=int(num1))
         elif num2!='':
-            vehicle=vehicle.filter(price__lte=int(num2))
+            vehicle1=vehicle.filter(price__lte=int(num2))
         else:
-            vehicle=vehicle
+            vehicle1=vehicle
 
-        vehicles=[]
+        for i in vehicle1:
+            vehicles1.append(i)
+
         flag=0
+        vehicle2=[]
         if (petrol is None) & (diesel is None) & (electric is None) & (hybrid is None):
             flag=1
-            vehicle=vehicle
+            for i in vehicle:
+                vehicle2.append(i)
         else:
             for i in vehicle:
 
                 if (petrol is not None):
                     if i.fuel_type=='Petrol':
-                        vehicles.append(i)
+                        vehicle2.append(i)
 
                 if diesel is not None:
                     if i.fuel_type=='Diesel':
-                        vehicles.append(i)
+                        vehicle2.append(i)
 
                 if electric is not None:
                     if i.fuel_type=='Electric':
-                        vehicles.append(i)
+                        vehicle2.append(i)
             
                 if hybrid is not None:
                     if i.fuel_type=='Hybrid':
-                        vehicles.append(i)
+                        vehicle2.append(i)
         
-        if (len(vehicles)==0) & (seats=='') & (flag==1):
-            vehicles=vehicle
-        elif (seats==''):
-            vehicles=vehicles
-        elif (len(vehicles)==0):
-            for i in vehicle:
-                if (int(seats)==i.seats):
-                    vehicles.append(i)
-        else:
-            for i in vehicles:
-                if (int(seats)!=i.seats):
-                    vehicles.remove(i)
+        vehicle3=[]
 
-        print(vehicles)
+        if (seats!=''):
+            for i in vehicle:
+                if i.seats==int(seats):
+                    vehicle3.append(i)
+        else:
+            for i in vehicle:
+                vehicle3.append(i)   
+
+        finvehicle=[]
+        for i in vehicles1:
+            for j in vehicle2:
+                for k in vehicle3:
+                    if ((i==j) & (j==k)):
+                        finvehicle.append(i)
+
+        # print(vehicles)
+        customer=request.user.customer
+        vehicles=[]
+        for i in finvehicle:
+            if i.owner!=customer:
+                vehicles.append(i)
         context={'searched':searched,'vehicles':vehicles}
         return render(request,'RentingApp/search.html',context)
     else:
         context={}
         return render(request,'RentingApp/search.html',context)
+
 
 @login_required(login_url='login')
 def Profile(request):
@@ -290,4 +302,19 @@ def profilepath(request,pk):
     
     context={'customer':customer}
     return render(request, 'RentingApp/profilepath.html', context)
+
+@login_required(login_url='login')
+def edit_profile(request):
+    customer = request.user.customer
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('Profile')
+
+    context = {'form': form}
+    return render(request, 'RentingApp/edit_profile.html', context)
 

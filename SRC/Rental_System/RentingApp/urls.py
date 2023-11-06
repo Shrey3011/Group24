@@ -24,4 +24,5 @@ urlpatterns = [
     path('myvehicleview/<str:pk>', views.myvehicleview, name='myvehicleview'),
     path('profilepath/<str:pk>/',views.profilepath,name='profilepath'),
     path('edit_vehicle/<str:pk>', views.edit_vehicle, name='edit_vehicle'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]
