@@ -25,4 +25,11 @@ urlpatterns = [
     path('profilepath/<str:pk>/',views.profilepath,name='profilepath'),
     path('edit_vehicle/<str:pk>', views.edit_vehicle, name='edit_vehicle'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('password_reset/', views.ResetPasswordView.as_view(), name='password_reset'),
+    path('password_reset_confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='RentingApp/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('password_reset_complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='RentingApp/password_reset_complete.html'),
+         name='password_reset_complete'),
 ]
