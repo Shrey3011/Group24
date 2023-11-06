@@ -303,3 +303,18 @@ def profilepath(request,pk):
     context={'customer':customer}
     return render(request, 'RentingApp/profilepath.html', context)
 
+@login_required(login_url='login')
+def edit_profile(request):
+    customer = request.user.customer
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('Profile')
+
+    context = {'form': form}
+    return render(request, 'RentingApp/edit_profile.html', context)
+
