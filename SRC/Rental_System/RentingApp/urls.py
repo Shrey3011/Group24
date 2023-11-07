@@ -17,6 +17,7 @@ urlpatterns = [
     path('history',views.history,name='history'),
     path('requestpage',views.requestpage,name='requestpage'),
     path('change_password/', views.change_password, name='change_password'),
+    path('reject/<int:id>',views.reject_request,name='reject_request'),
     path('search_vehicle',views.search_vehicle,name='search_vehicle'),
     path('search_vehicle_filter',views.search_vehicle_filter,name='search_vehicle_filter')
     path('profile/',views.Profile,name='Profile'),
