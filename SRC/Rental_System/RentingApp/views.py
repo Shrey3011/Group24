@@ -173,6 +173,15 @@ def requestpage(request):
     return render(request,'RentingApp/requestpage.html',context)
 
 @login_required(login_url='login')
+def reject_request(request , id):
+    requests_ac = Request_rent.objects.get(id=id)
+    requests_ac.status='Rejected'
+    requests_ac.save()
+    html_message = render_to_string('RentingApp/reject_email.html', context)
+    send_mail(subject, message, from_email, [recipient], html_message=html_message)
+    return redirect(requestpage)
+
+@login_required(login_url='login')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
