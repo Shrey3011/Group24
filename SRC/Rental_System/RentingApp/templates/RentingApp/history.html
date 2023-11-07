@@ -20,11 +20,11 @@
                 {% for i in requests1 %}
 
                 <tr>
-                    <th>{{i.vehicle.model}}</th>
+                    <th><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></th>
                     <th>{{i.start_date}}</th>
                     <th>{{i.end_date}}</th>
                     <th>{{i.total}}</th>
-                    <th>{{i.vehicle.owner}}</th>
+                    <th><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}</a>}</th>
                 </tr>
 
                 {% endfor %}
