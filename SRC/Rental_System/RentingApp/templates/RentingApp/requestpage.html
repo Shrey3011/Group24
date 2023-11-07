@@ -66,6 +66,7 @@
                     <th>{{i.total}}</th>
                     <th>{{i.status}}</th>
                     <th>{{i.seeker}}</th>
+                    <th><a class ='button' href="{% url 'reject_request' i.id %}">Reject</a></th>
                 </tr>
 
                 {% endfor %}
