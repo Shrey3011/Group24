@@ -182,6 +182,25 @@ def reject_request(request , id):
     return redirect(requestpage)
 
 @login_required(login_url='login')
+def delete_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.delete()
+    return redirect(requestpage)
+
+@login_required(login_url='login')
+def accept_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.status='Accepted'
+    requests.save()
+    vehicle_id=requests.vehicle
+
+    for i in Request_rent.objects.filter(vehicle=vehicle_id , status='Pending') :
+        if ((i.start_date <= requests.end_date) and (i.start_date >= requests.start_date)) or ((i.end_date <= requests.end_date) and (i.end_date >= requests.start_date)) or ((requests.start_date >= i.start_date) and (i.end_date >= requests.end_date)):
+            i.status = 'Rejected'
+            i.save()
+    return redirect(requestpage)
+
+@login_required(login_url='login')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
