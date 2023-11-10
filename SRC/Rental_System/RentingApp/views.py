@@ -146,6 +146,11 @@ def productview(request,pk):
             number_of_days=abs(start_date-end_date).days
             total=(vehicle.price)*number_of_days
             status='Pending'
+
+            if (start_date > end_date or start_date < date.today() or end_date < date.today()):
+                messages.info(request,'Invalid Duration')
+                return render(request,'RentingApp/productview.html',context)
+        
             Request_rent.objects.create(seeker = customer_object,vehicle=vehicle,start_date=start_date,
                                         end_date=end_date,number_of_days=number_of_days,total=total,
                                         status=status)
