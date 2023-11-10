@@ -173,6 +173,34 @@ def requestpage(request):
     return render(request,'RentingApp/requestpage.html',context)
 
 @login_required(login_url='login')
+def reject_request(request , id):
+    requests_ac = Request_rent.objects.get(id=id)
+    requests_ac.status='Rejected'
+    requests_ac.save()
+    html_message = render_to_string('RentingApp/reject_email.html', context)
+    send_mail(subject, message, from_email, [recipient], html_message=html_message)
+    return redirect(requestpage)
+
+@login_required(login_url='login')
+def delete_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.delete()
+    return redirect(requestpage)
+
+@login_required(login_url='login')
+def accept_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.status='Accepted'
+    requests.save()
+    vehicle_id=requests.vehicle
+
+    for i in Request_rent.objects.filter(vehicle=vehicle_id , status='Pending') :
+        if ((i.start_date <= requests.end_date) and (i.start_date >= requests.start_date)) or ((i.end_date <= requests.end_date) and (i.end_date >= requests.start_date)) or ((requests.start_date >= i.start_date) and (i.end_date >= requests.end_date)):
+            i.status = 'Rejected'
+            i.save()
+    return redirect(requestpage)
+
+@login_required(login_url='login')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)

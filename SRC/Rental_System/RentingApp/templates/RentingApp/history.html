@@ -2,64 +2,83 @@
 
 {% block content %}
 
-<h1>History for taken on Rent</h1>
-<div class="row">
+<!-- Page Contains History of User's Vehicles -->
 
-    <div class="col-md">
-        <div class="card card-body">
+<html>
+<head>
+   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+   <script>
+      $(function() {
+         $("#includeHtml").load("navbar.html");
+      });
+   </script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-            <table class="table table-sm">
+   <style>
+    body {
+      background-color: #f8f9fa;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .th {
+  display: flex;
+  align-items: center;
+}
+.table th,
+.table td {
+  text-align: center; /* Center text horizontally */
+  vertical-align: middle; /* Center text vertically */
+}
+  </style>
+</head>
+<body>
+  
+    <div id="includeHtml"></div>
+    <div class="container-fluid">
+        <div class="container">
+          <h2 class="mb-4">History</h2>
+          <div class="table-responsive">
+            <table class="table border-bottom" >
+              <thead>
                 <tr>
-                    <th>Vehicle</th>
-                    <th>Start_date</th>
-                    <th>End_date</th>
-                    <th>Total</th>
-                    <th>Owner</th>
+                  <th scope="col"></th>
+                  <th scope="col">Vehicle Name</th>
+                  <th scope="col">Start date</th>
+                  <th scope="col">End date</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Seeker</th>
                 </tr>
-
-                {% for i in requests1 %}
-
+              </thead>
+              <tbody>
+                {% for i in requests %}
                 <tr>
-                    <th><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></th>
-                    <th>{{i.start_date}}</th>
-                    <th>{{i.end_date}}</th>
-                    <th>{{i.total}}</th>
-                    <th><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}</a>}</th>
+                    <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                        style="height: 150px;width: 200px;"></img></a>
+                  <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                    <td>{{i.start_date}}</td>
+                    <td>{{i.end_date}}</td>
+                    <td>{{i.total}}</td>
+                    <td><a href="{% url 'profilepath' i.seeker.id %}">{{i.seeker}}</a></td>
                 </tr>
-
                 {% endfor %}
 
+                <!-- Add more rows as needed -->
+              </tbody>
             </table>
+          </div>
         </div>
-
-    </div>
-</div>
-<br><br>
-
-<h1>History for Given on Rent</h1>
-<div class="row">
-
-    <div class="col-md">
-        <div class="card card-body">
-
-            <table class="table table-sm">
-                <tr>
-                    <th>Vehicle</th>
-                    <th>Start_date</th>
-                    <th>End_date</th>
-                    <th>Total</th>
-                    <th>Owner</th>
-                </tr>
-
-                {% for i in requests2 %}
-
-                {% endfor %}
-
-            </table>
-        </div>
-
-    </div>
-</div>
+      </div>
+</body>
+</html>
 
 {% endblock %}
-<!-- {% block content %} -->
