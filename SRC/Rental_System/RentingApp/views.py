@@ -181,9 +181,22 @@ def requestpage(request):
 def reject_request(request , id):
     requests_ac = Request_rent.objects.get(id=id)
     requests_ac.status='Rejected'
-    requests_ac.save()
+    subject = 'Your Request Has Been Rejected'
+    message = 'Your request to rent the vehicle has been Rejected!'
+    from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+    recipient = requests_ac.seeker.email
+    context = {
+        'customer_name': requests_ac.seeker.firstname,
+        'request_id': requests_ac.id,
+        'vehicle_name': requests_ac.vehicle.model,
+        'start_date': requests_ac.start_date,
+        'end_date': requests_ac.end_date,
+        'owner_name': requests_ac.vehicle.owner.firstname,
+        'owner_contact': requests_ac.vehicle.owner.email,
+    }
     html_message = render_to_string('RentingApp/reject_email.html', context)
     send_mail(subject, message, from_email, [recipient], html_message=html_message)
+    requests_ac.save()
     return redirect(requestpage)
 
 @login_required(login_url='login')
@@ -196,12 +209,44 @@ def delete_request(request , id):
 def accept_request(request , id):
     requests = Request_rent.objects.get(id=id)
     requests.status='Accepted'
+    requests = Request_rent.objects.get(id=id)
+    requests.status='Accepted'
+    subject = 'Your Request Has Been Accepted'
+    message = 'Your request to rent the vehicle has been accepted!'
+    from_email = 'shrimalidevansh511@gmail.com'  
+    recipient = requests.seeker.email
+    context = {
+    'customer_name': requests.seeker.firstname,
+    'request_id': requests.id,
+    'vehicle_model': requests.vehicle.model,
+    'start_date': requests.start_date,
+    'end_date': requests.end_date,
+    'owner_name': requests.vehicle.owner.firstname,
+    'owner_email': requests.vehicle.owner.email,
+    }
+    html_message = render_to_string('RentingApp/accept_email.html', context)
+    send_mail(subject, message, from_email, [recipient], html_message=html_message)
     requests.save()
     vehicle_id=requests.vehicle
 
     for i in Request_rent.objects.filter(vehicle=vehicle_id , status='Pending') :
         if ((i.start_date <= requests.end_date) and (i.start_date >= requests.start_date)) or ((i.end_date <= requests.end_date) and (i.end_date >= requests.start_date)) or ((requests.start_date >= i.start_date) and (i.end_date >= requests.end_date)):
             i.status = 'Rejected'
+            subject = 'Your Request Has Been Rejected'
+            message = 'Your request to rent the vehicle has been Rejected!'
+            from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+            recipient = i.seeker.email
+            context = {
+                'customer_name': i.seeker.firstname,
+                'request_id': i.id,
+                'vehicle_name': i.vehicle.model,
+                'start_date': i.start_date,
+                'end_date': i.end_date,
+                'owner_name': i.vehicle.owner.firstname,
+                'owner_contact': i.vehicle.owner.email,
+            }
+            html_message = render_to_string('RentingApp/reject_email.html', context)
+            send_mail(subject, message, from_email, [recipient], html_message=html_message)
             i.save()
     return redirect(requestpage)
 
