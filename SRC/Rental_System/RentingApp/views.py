@@ -12,6 +12,22 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from .decorators import *
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from datetime import date
+from django.contrib.auth.models import User,auth
+
+
 
 # Create your views here.
 
@@ -130,6 +146,11 @@ def productview(request,pk):
             number_of_days=abs(start_date-end_date).days
             total=(vehicle.price)*number_of_days
             status='Pending'
+
+            if (start_date > end_date or start_date < date.today() or end_date < date.today()):
+                messages.info(request,'Invalid Duration')
+                return render(request,'RentingApp/productview.html',context)
+        
             Request_rent.objects.create(seeker = customer_object,vehicle=vehicle,start_date=start_date,
                                         end_date=end_date,number_of_days=number_of_days,total=total,
                                         status=status)
@@ -155,6 +176,34 @@ def requestpage(request):
     requests2=requests.filter(owner=customer)
     context={'requests1':requests1,'requests2':requests2}
     return render(request,'RentingApp/requestpage.html',context)
+
+@login_required(login_url='login')
+def reject_request(request , id):
+    requests_ac = Request_rent.objects.get(id=id)
+    requests_ac.status='Rejected'
+    requests_ac.save()
+    html_message = render_to_string('RentingApp/reject_email.html', context)
+    send_mail(subject, message, from_email, [recipient], html_message=html_message)
+    return redirect(requestpage)
+
+@login_required(login_url='login')
+def delete_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.delete()
+    return redirect(requestpage)
+
+@login_required(login_url='login')
+def accept_request(request , id):
+    requests = Request_rent.objects.get(id=id)
+    requests.status='Accepted'
+    requests.save()
+    vehicle_id=requests.vehicle
+
+    for i in Request_rent.objects.filter(vehicle=vehicle_id , status='Pending') :
+        if ((i.start_date <= requests.end_date) and (i.start_date >= requests.start_date)) or ((i.end_date <= requests.end_date) and (i.end_date >= requests.start_date)) or ((requests.start_date >= i.start_date) and (i.end_date >= requests.end_date)):
+            i.status = 'Rejected'
+            i.save()
+    return redirect(requestpage)
 
 @login_required(login_url='login')
 def change_password(request):
@@ -318,3 +367,12 @@ def edit_profile(request):
     context = {'form': form}
     return render(request, 'RentingApp/edit_profile.html', context)
 
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'RentingApp/password_reset.html'
+    email_template_name = 'RentingApp/password_reset_email.html'
+   # subject_template_name = 'RentingApp/password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('home')
