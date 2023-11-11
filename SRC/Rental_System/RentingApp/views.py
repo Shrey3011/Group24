@@ -213,7 +213,7 @@ def accept_request(request , id):
     requests.status='Accepted'
     subject = 'Your Request Has Been Accepted'
     message = 'Your request to rent the vehicle has been accepted!'
-    from_email = 'shrimalidevansh511@gmail.com'  
+    from_email = 'mahaveersinh2106@gmail.com'  
     recipient = requests.seeker.email
     context = {
     'customer_name': requests.seeker.firstname,
