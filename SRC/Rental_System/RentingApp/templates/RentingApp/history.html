@@ -42,7 +42,7 @@
   </style>
 </head>
 <body>
-  
+    {% if len1 != 0 %}
     <div id="includeHtml"></div>
     <div class="container-fluid">
         <div class="container">
@@ -79,6 +79,15 @@
         </div>
       </div>
 </body>
+{% else %}
+<div class="container-fluid">
+    <div class="container">
+        <h2 class="mb-4">No History Yet</h2>
+        <div class="table-responsive">
+    </div>
+    </div>
+    </div>
+{% endif %}
 </html>
 
 {% endblock %}
