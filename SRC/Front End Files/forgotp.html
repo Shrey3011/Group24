@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script>
+    $(function() {
+       $("#includeHtml").load("navbar.html");
+    });
+ </script>
+</head>
+<body>
+    <div id="includeHtml"></div>    
+  <style>
+    body {
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #F5F5F5;
+    }
+  
+    .container {
+      text-align: center;
+      font-family: 'Josefin Slab', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    h1 {
+      font-size: 70px;
+    }
+  
+    .forgot-password-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .input-box {
+      background-color: #BFC0C0;
+      width: 480px;
+      height: 71px;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: right;
+    }
+  
+    .input-box label {
+      font-size: 25px;
+    }
+  
+    .input-box input {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+  
+    .btn-finish {
+      background-color: #EF8354;
+      color: #000000;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 30px;
+      width: 120px;
+      height: 60px;
+      align-items: center;
+      font-family: 'Josefin Slab', sans-serif;
+      margin: 15px 0;
+    }
+    .sign-up-link {
+            font-size: 18px;
+            text-decoration: underline;
+            cursor: pointer;
+            position: absolute;
+            top: 550px;
+           
+        }
+     .login-link {
+            font-size: 18px;
+            text-decoration: underline;
+            cursor: pointer;
+            position: absolute;
+            top: 600px;
+        }
+  
+  </style>
+  <div class="container d-sm-grid" style="margin-top: 20px;">
+    <h1>Forgot Password?</h1>
+    <form class="forgot-password-form">
+      
+      <div class="input-box">
+        <label for="current-password">Email:</label>
+        <input type="email" id="email" name="Email" placeholder="Enter your email ID">
+      </div>
+      <button type="submit" class="btn-finish">Submit</button>
+    </form>
+    <div class="sign-up-link"><a href="register.html">Create a New Account</a></div>
+    <div class="login-link"><a href="login.html">Back to Login</a></div>
+  </div>
+</body>
+</html>
