@@ -34,12 +34,35 @@ from django.contrib.auth.models import User,auth
 @unauthenticated_user
 def register(request):
 
-    form=CreateUserForm()
+    form = CreateUserForm()
 
-    if request.method=='POST':
-        form=CreateUserForm(request.POST)
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        to_email = request.POST.get('email')
+
+        if User.objects.filter(email=to_email).exists():
+                 messages.info(request,'An user with this email already exists!')
+                 return  render(request, 'RentingApp/register.html',{'form': form})
         if form.is_valid():
-            user= form.save()
+            user = form.save()
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('RentingApp/acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token.make_token(user),
+            })
+           
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            
+        
+            # user= form.save()
             username= form.cleaned_data.get('username')
             firstname=form.cleaned_data.get('firstname')
             lastname=form.cleaned_data.get('lastname')
@@ -53,10 +76,12 @@ def register(request):
                 lastname=lastname
             )
             messages.success(request,'Account was created for ' + username)
-            return redirect('login')
+            # return redirect('login')
 
-    context={'form':form}
-    return render(request,'RentingApp/register.html',context)
+            return HttpResponse('Please confirm your email address to complete the registration')
+
+
+    return render(request, 'RentingApp/register.html', {'form': form})
 
 @unauthenticated_user
 def login_handler(request):
