@@ -43,6 +43,7 @@
         }
     </style>
 </head>
+{% if len1 != 0 or len2 != 0 or len3 != 0 or len4 != 0 %}
 {% if len1 > 0 %}
   <body>
       <div id="includeHtml"></div>
@@ -77,8 +78,8 @@
                             <td>{{i.total}}</td>
                             <td>{{i.status}}</td>
                             <td><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}
-                            <td><a class='button' href="{% url 'delete_request' i.id %}"></a><button
-                                    class="btn-danger">Delete Request</button></a></td>
+                            <td><a class='button' href="{% url 'delete_request' i.id %}">Delete Request</a>
+                                <!-- <button class="btn-danger">Delete Request</button></a></td> -->
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
@@ -205,10 +206,10 @@
                             <td>{{i.total}}</td>
                             <td>{{i.status}}</td>
                             <td><a href="{% url 'profilepath' i.seeker.id %}">{{i.seeker}}
-                            <td><a class='button' href="{% url 'accept_request' i.id %}"></a><button
-                                    class="btn-success">Accept Request</button></a></td>
-                            <td><a class='button' href="{% url 'delete_request' i.id %}"></a><button
-                                    class="btn-danger">Reject Request</button></a></td>
+                            <td><a class='button' href="{% url 'accept_request' i.id %}">Accept Request</a>
+                                <!-- <button class="btn-success">Accept Request</button></a></td> -->
+                            <td><a class='button' href="{% url 'delete_request' i.id %}">Reject Request</a>
+                                <!-- <button class="btn-danger">Reject Request</button></a></td> -->
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
@@ -219,8 +220,16 @@
     </div>
     <br>
 </body>
-{% endif %}
-
+    {% endif %}
+    {% else %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Requests Yet To Come</h2>
+            <div class="table-responsive">
+        </div>
+        </div>
+        </div>
+    {% endif %}
 </html>
 
 {% endblock %}

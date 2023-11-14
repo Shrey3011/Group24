@@ -1,0 +1,90 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/add.css' %}">
+<!-- <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <input type="submit" name="Submit">
+
+</form> -->
+<style>
+    body {
+        background-image:url("{% static 'images/reg_back.webp' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(5px);
+    }
+</style>
+<!--Basic Info-->
+<h1 class="basic">Edit Info</h1>
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Basic Info Form -->
+
+    <div class="form">
+        <ul>
+            <li>
+                <input type="text" class="txtbox" value="{{vehicle.company}}" name="company" placeholder="Company:"
+                    required>
+                <input type="text" class="txtbox" value="{{vehicle.model}}" name="model" placeholder="Model:" required>
+            </li>
+
+            <li>
+                <select class="fuel" name="fuel" selected="{{vehicle.fuel_type}}" placeholder="Fuel type:" required>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <input type="number" class="txtbox" min="1" value="{{vehicle.seats}}" name="capacity"
+                    placeholder="Seating Capacity:" required>
+            </li>
+
+            <li>
+                <input type="text" class="txtbox" value="{{vehicle.city}}" name="city" placeholder="City:" required>
+                <input type="text" class="txtbox" value="{{vehicle.state}}" name="state" placeholder="State:" required>
+            </li>
+
+            <li>
+                <textarea class="addinfo" name="addinfo" placeholder="{{vehicle.about}}" rows="4"></textarea>
+            </li>
+
+            <li>
+                <input type="number" class="txtbox" min="1" value="{{vehicle.price}}" name="price"
+                    placeholder="Price (per day):" required>
+            </li>
+
+
+            <center>
+                <img class="profile-pic" src="{{vehicle.image.url}}">
+                <input type="file" class="im1" name="image" accept="image/*">
+
+            </center><br>
+
+
+            <li>
+                <div class="bt">
+                    <button class="btn btn-info" onclick="return confirm('Confirm Changes')">Save</button>
+                </div>
+
+                <div class="bt">
+                    <button class="btn btn-info" href="{% url 'myvehicleview' vehicle.id %}"
+                        onclick="return confirm('Discard Changes')">Back</button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+
+
+</form>
+
+<!--end of Basic Info-->
+
+{% endblock %}

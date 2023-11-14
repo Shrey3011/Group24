@@ -1,26 +1,63 @@
 {% extends 'RentingApp/main.html' %}
-
+{% load static %}
 {% block content %}
-
-<!-- Page Contains User's Vehicles -->
+<link rel="stylesheet" href="{% static 'css/myveh.css' %}">
 
 <div class="container">
+    <style>
+        body {
+            background-image:url("{% static 'images/reg_back.webp' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+    {% if len1 != 0 %}
+
     <div class="row">
 
-    {% for i in vehicle %}
+        {% for i in vehicle %}
+        <!-- -->
 
-    <div class="col-sm-4 my-4">
-    <div class="card Boxshadow h-100" style="width: 18rem;">
-    <img class="d-block w-100" src="{{i.image.url}}" alt="First slide" style="height:200px">
-    Model : {{i.model}}<br>
-    Price(per day) : {{i.price}} 
-    <br>
-    <a href="{% url 'myvehicleview' i.id %}">Full View</a>
-    <br>
+        <ul class="vehicle-list">
+            <li class="vehicle-item">
+                <img class="vehicle-image" src="{{i.image.url}}" alt="Car 1">
+
+                <div class="vehicle-details">
+                    {{i.company}}
+                    <br>
+                    {{i.model}}
+                    <br>
+                    {{i.price}} Per Day
+                    <br>
+                </div>
+
+                <div class="button-container">
+                    <a href="{% url 'edit_vehicle' i.id %}" class="button edit-button">Edit</a>
+                    <a href="{% url 'delete_vehicle' i.id %}" class="button remove-button"
+                        onclick="return confirm('Confirm Removal')">Remove</a>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+        {% else %}
+<!-- 
+<center> -->
+        <div class="msg-container">
+            <button class="redirect"><a href="{% url 'addvehicle' %}" class="nav-link active">Add Your First Vehicle
+                    Today!</a></button>
+
+        </div>
+<!-- </center> -->
+
+        {% endif %}
+
+
     </div>
 </div>
 
-{% endfor %}
-</div>
-</div>
+
+
+
 {% endblock %}
