@@ -13,12 +13,12 @@ class Customer(models.Model):
     firstname=models.CharField(max_length=30)
     lastname=models.CharField(max_length=30)
     email=models.EmailField(max_length=254)
-    contact_no=models.CharField(max_length=12)
+    contact_no=models.CharField(max_length=12,null=True)
     gender=models.CharField(max_length=10,choices=GENDER)
     city=models.CharField(max_length=30,null=True)
     state=models.CharField(max_length=30,null=True)
     country=models.CharField(max_length=30,null=True)
-    profile_pic=models.ImageField(default='default_profile_picture.png', blank=True)
+    profile_pic=models.ImageField(default='default_profile_picture.png',null=True, blank=True)
     date_created=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

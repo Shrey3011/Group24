@@ -26,6 +26,8 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from datetime import date
 from django.contrib.auth.models import User,auth
+import datetime
+from dateutil import parser
 
 
 
@@ -159,29 +161,42 @@ def addvehicle(request):
 
 @login_required(login_url='login')
 def productview(request,pk):
-    form=RequestForm()
+    # form=RequestForm()
     vehicle=Vehicle.objects.get(id=pk)
+    context={'vehicle':vehicle,'owner':vehicle.owner,'user':request.user.customer}
 
     if request.method=='POST':
-        form=RequestForm(request.POST)
-        if form.is_valid():
-            customer_object=request.user.customer
-            start_date=form.cleaned_data.get('start_date')
-            end_date=form.cleaned_data.get('end_date')
-            number_of_days=abs(start_date-end_date).days
-            total=(vehicle.price)*number_of_days
-            status='Pending'
-
-            if (start_date > end_date or start_date < date.today() or end_date < date.today()):
-                messages.info(request,'Invalid Duration')
-                return render(request,'RentingApp/productview.html',context)
+        # form=RequestForm(request.POST)
+        start_date=request.POST.get('start_date')
+        # start_date_obj=
+        end_date=request.POST.get('end_date')
         
-            Request_rent.objects.create(seeker = customer_object,vehicle=vehicle,start_date=start_date,
-                                        end_date=end_date,number_of_days=number_of_days,total=total,
-                                        status=status)
-            return redirect('home')
+        temp1 = parser.parse(start_date)
+        temp2 = parser.parse(end_date)
+        start_date_obj = temp1.date()
+        end_date_obj = temp2.date()
+        customer_object=request.user.customer
+        # start_date=form.cleaned_data.get('start_date')
+        # end_date=form.cleaned_data.get('end_date')
+        number_of_days=abs(start_date_obj-end_date_obj).days
+        if (start_date_obj > end_date_obj or start_date_obj < date.today() or end_date_obj < date.today()):
+            messages.info(request,'Invalid Duration')
+            return render(request,'RentingApp/productview.html',context)
+        
+        requests=Request_rent.objects.all()
+
+        for i in requests:
+            if i.status=="Accepted" and i.vehicle==vehicle:
+                if ((start_date_obj <= i.end_date) and (start_date_obj >= i.start_date)) or ((end_date_obj <= i.end_date) and (end_date_obj >= i.start_date)) or ((end_date_obj >= i.end_date) and (start_date_obj <= i.start_date)):
+                    messages.info(request,'Sorry, This Vehicle is not available for this time period')
+                    return render(request,'RentingApp/productview.html',context)
+        total=(vehicle.price)*(number_of_days+1)
+        status='Pending'
+        Request_rent.objects.create(seeker = customer_object,vehicle=vehicle,start_date=start_date_obj,
+                                    end_date=end_date_obj,number_of_days=number_of_days,total=total,
+                                    status=status)
+        return redirect('home')
             
-    context={'vehicle':vehicle,'form':form}
     return render(request,'RentingApp/productview.html',context)
 
 @login_required(login_url='login')
