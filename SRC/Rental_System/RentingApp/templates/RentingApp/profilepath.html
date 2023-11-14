@@ -2,107 +2,90 @@
 {% load static %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="row">
-        <!-- Profile Image -->
-        <div class="col-sm-4">
-            <div class="card p-2" style="width: auto;">
-                <img class="card-img-top" src="{{customer.profile_pic.url}}" alt="Your Profile Photo">
-                <div class="card-body">
-                    <h6 class="card-title">Profile Photo</h6>
-                </div>
-            </div>
-        </div>
+<style>
+    body {
+        font-family: 'Josefin Slab', sans-serif;
+        background-color: #F5F5F5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
 
-        <!-- Information -->
-        <div class="col-sm-8">
-            <div class="card p-2" style="width: auto;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">First Name</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.firstname}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Last Name</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.lastname}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.email}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Register date</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.date_created}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Gender</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.gender}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Mobile Number</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.contact_no}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">City</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.city}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">State</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.state}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Country</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{customer.country}}
-                        </div>
-                    </div>
-                    <hr>
-                    
-                </div>
-            </div>
-        </div>
+    .profile-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        background-color: #F5F5F5;
+        padding: 20px;
+    }
+
+    .profile-picture {
+        width: 200px;
+        height: 200px;
+        background-image: url({{customer.profile_pic.url}});
+        background-size: cover;
+        background-position: center;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-details {
+        flex: 1;
+        padding: 20px;
+    }
+    .profile-details-heading {
+        background-color: #ef8354;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 35px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .user-attribute {
+        width: 100%;
+        height: 35px;
+        font-size: 18px;
+        background-color: #bfc0c0;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .edit-profile-link {
+        font-size: 18px;
+        text-decoration: underline;
+        cursor: pointer;
+        position: absolute;
+        top: 250px;
+        left: 75px;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-picture"></div>
+    
+    <div class="profile-details">
+        <!-- Profile Details Heading -->
+        <div class="profile-details-heading">Profile Details</div>
+        <div class="user-attribute">First Name: {{customer.firstname}}</div>
+        <div class ="user-attribute">Last Name: {{customer.lastname}}</div>
+        <div class="user-attribute">Email: {{customer.email}}</div>
+        <div class="user-attribute">Gender: {{customer.gender}}</div>
+        <div class="user-attribute">Mobile Number: {{customer.contact_no}}</div>
+        <div class="user-attribute">City: {{customer.city}}</div>
+        <div class="user-attribute">State: {{customer.state}}</div>
+        <div class="user-attribute">Country: {{customer.country}}</div>
     </div>
 </div>
+
 {% endblock %}

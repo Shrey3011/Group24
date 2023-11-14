@@ -5,15 +5,26 @@ from django import forms
 from django.contrib.auth.models import User
 
 class CreateUserForm(UserCreationForm):
+
+    firstname=forms.CharField(max_length=30)
+    lastname=forms.CharField(max_length=30)
+
     class Meta:
         model=User
-        fields=['username','email','password1','password2']
+        fields=['username','firstname','lastname','email','password1','password2']
 
 class CustomerForm(ModelForm):
     class Meta:
         model=Customer
         fields='__all__'
-        exclude=['user']
+        exclude=['user','email']
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerForm, self).__init__(*args, **kwargs)
+        self.fields['city'].required = False
+        self.fields['state'].required = False
+        self.fields['country'].required = False
+        self.fields['contact_no'].required = False
 
 class AddvehicleForm(ModelForm):
     class Meta:

@@ -2,53 +2,110 @@
 {% load static %}
 {% block content %}
 
-<div class="row">
-    <div class="col-md-3">
-        <div class="card card-body">
-            <img class="profile-pic" src="{{vehicle.image.url}}">
-            
+<style>
+    body {
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #F5F5F5;
+    }
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    h5 {
+        margin-left: 8;
+    }
+
+    .specs {
+        align-items: baseline;
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    .request {
+        padding-left: auto;
+        margin: auto;
+    }
+
+    .btn-request {
+        background-color: #EF8354;
+        color: #000000;
+        padding: 10px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        font-size: 20px;
+        align-items: center;
+        font-family: 'Josefin Slab', sans-serif;
+        margin: 15px 0;
+    }
+</style>
+<section class="container my-3 pt-3">
+    <div class="row mt-1">
+        <div class="col-lg-6">
+            <img src="{{vehicle.image.url}}" class="img-fluid w-100 card " alt="">
+        </div>
+        <div class="col-md-5 mt-5">
+            <div class="pt-3 specs">
+                <ul class="list-group">
+
+                    <li class="list-group-item">Model: {{vehicle.model}}</li>
+                    <li class="list-group-item">Company: {{vehicle.company}}</li>
+                    <li class="list-group-item">Fuel Type: {{vehicle.fuel_type}}</li>
+                    <li class="list-group-item">Seats: {{vehicle.seats}}</li>
+                    <li class="list-group-item">About: {{vehicle.about}}</li>
+                    <li class="list-group-item">City: {{vehicle.city}}</li>
+                    <li class="list-group-item">Price: {{vehicle.price}}</li>
+                    <!-- <li class="list-group-item">Status: {{vehicle.status}}</li> -->
+                </ul>
+            </div>
         </div>
     </div>
+</section>
 
-    <div class="col-md-9">
-        <div class="card card-body">
-            company:
-            {{vehicle.company}}
-            <br>
-            model:
-            {{vehicle.model}}
-            <br>
-            price:
-            {{vehicle.price}}
-            <br>
-            fuel_type:
-            {{vehicle.fuel_type}}
-            <br>
-            seats:
-            {{vehicle.seats}}
-            <br>
-            about:
-            {{vehicle.about}}
-            <br>
-            city:
-            {{vehicle.city}}
-            <br>
-        </div>
-    </div>
-
-</div>
+{% if user != owner %}
 
 <div class="row">
     <div class="col-md">
         <form action="" method="POST">
             {% csrf_token %}
-            
-            {{form.as_p}}
 
-            <input type="submit" name="Request">
+            <section class="container-sm">
+                <div class="card card-body">
+
+                    <div class="row">
+                        <div class="col">
+                            <h5>Start Date:</h5> <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <h5>End Date</h5>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <input class="btn-request" type="submit" value="Request Owner">
         </form>
     </div>
-    
 </div>
 
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
+
 {% endblock %}
+
