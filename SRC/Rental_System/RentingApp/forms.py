@@ -13,7 +13,14 @@ class CustomerForm(ModelForm):
     class Meta:
         model=Customer
         fields='__all__'
-        exclude=['user']
+        exclude=['user','email']
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerForm, self).__init__(*args, **kwargs)
+        self.fields['city'].required = False
+        self.fields['state'].required = False
+        self.fields['country'].required = False
+        self.fields['contact_no'].required = False
 
 class AddvehicleForm(ModelForm):
     class Meta:
