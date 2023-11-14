@@ -28,6 +28,7 @@ from datetime import date
 from django.contrib.auth.models import User,auth
 import datetime
 from dateutil import parser
+from django.contrib.auth import update_session_auth_hash
 
 
 
