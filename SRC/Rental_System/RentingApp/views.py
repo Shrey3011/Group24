@@ -511,3 +511,9 @@ def edit_vehicle(request , pk):
 
     context = {'vehicle': vehicle2}
     return render(request, 'RentingApp/edit_vehicle.html', context)
+
+@login_required(login_url='login')
+def delete_vehicle(request,pk):
+    vehicle=Vehicle.objects.get(id=pk)
+    vehicle.delete()
+    return redirect('myvehicle')
