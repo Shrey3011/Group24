@@ -1,0 +1,174 @@
+/* Global */
+body {
+    font-family: 'Josefin Slab', sans-serif;
+    text-align: center;
+    padding: 0;
+    overflow: auto;
+}
+
+
+/* H3 */
+h3 {
+    font-family: 'Josefin Slab';
+    text-align: center;
+}
+
+/* H1 */
+.basic {
+    text-align: center;
+    background-color: #4F5D75;
+    margin-top: 5%;
+    margin-right: 15%;
+    margin-left: 15%;
+    font-size: 4rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-family: 'Josefin Slab';
+    margin-bottom: 0;
+}
+
+/* Text */
+p {
+    font-family: 'Josefin Slab';
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+
+
+
+/* Form */
+.form {
+    border: 1px solid black;
+    margin-right: 15%;
+    margin-left: 15%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1%;
+}
+
+
+
+
+
+/* Additional Info */
+.addinfo {
+    width: 72%;
+    margin-left: 10.83%;
+    margin-right: 10.83%;
+    margin-bottom: 2%;
+    padding: 10px;
+    border: 1px solid #bfc0c0;
+    border-radius: 4px;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+/* Text Boxes and Select */
+input[type="text"],
+input[type="number"],
+.fuel {
+    width: 25%;
+    margin-left: 10.83%;
+    margin-right: 10.83%;
+    margin-bottom: 2%;
+    padding: 1%;
+    border: 1px solid #bfc0c0;
+    border-radius: 4px;
+    font-family: 'Josefin Slab', sans-serif;
+    max-width: 25%;
+}
+
+
+
+
+/* Images Upload */
+input[type="file"] {
+    width: 60%;
+    margin-left: 10.83%;
+    margin-right: 10.83%;
+    margin-bottom: 2%;
+    padding: 1%;
+    border: 1px solid #bfc0c0;
+    border-radius: 4px;
+    font-family: 'Josefin Slab', sans-serif;
+    max-width: 60%;
+}
+
+/* Images Label */
+.img {
+    display: inline-block;
+    width: 35%;
+    font-family: 'Josefin Slab';
+    font-size: 1rem;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* Accessories Fieldset */
+.cbox {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: 'Josefin Slab';
+}
+
+/* Accesories input */
+.abx {
+
+    font-family: 'Josefin Slab';
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+/* Accesories Label */
+.acces {
+    display: inline-block;
+    margin-left: 14%;
+    width: 15%;
+}
+
+
+
+
+
+
+/* Terms and conditions */
+.terms {
+    border: 1px solid black;
+    margin-right: 15%;
+    margin-left: 15%;
+    border-radius: 12px;
+    margin-top: 5%;
+    font-family: 'Josefin Slab';
+}
+
+
+
+/* Submit Button */
+.submit {
+    background-color: #ef8354;
+    font-size: 2.5rem;
+    font-family: 'Josefin Slab';
+    border-radius: 12px;
+    width: 15%;
+    margin-left: 45%;
+    margin-bottom: 5%;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 868px) {
+    input[type="text"],input[type="number"],
+    input[type="checkbox"],input[type="file"],
+    .basic,.form,.fuel,.addinfo,p,.img,.acces,.cbox,.submit,.terms,h3 {
+        
+        font-size: 80%;
+    }
+}
