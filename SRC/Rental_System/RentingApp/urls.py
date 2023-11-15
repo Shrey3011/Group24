@@ -37,4 +37,5 @@ urlpatterns = [
          name='password_reset_complete'),
     path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
+    path('delete_vehicle/<str:pk>', views.delete_vehicle, name='delete_vehicle'),
 ]
