@@ -475,3 +475,39 @@ def activate(request, uidb64, token):
         return render(request,'RentingApp/thanks.html')
     else:
         return HttpResponse('Activation link is invalid!')
+
+@login_required(login_url='login')
+def edit_vehicle(request , pk):
+    # vehicle = Vehicle.objects.filter(id = pk)
+    # form = AddvehicleForm(instance=vehicle)
+    vehicle2=Vehicle.objects.get(id=pk)
+
+    if request.method == 'POST':
+        # form = AddvehicleForm(request.POST, request.FILES, instance=vehicle)
+        # customer_object = request.user.customer
+        vehicle2.company=request.POST.get('company')
+        vehicle2.model=request.POST.get('model')
+        vehicle2.fuel_type=request.POST.get('fuel')
+        vehicle2.seats=request.POST.get('capacity')
+        vehicle2.about=request.POST.get('addinfo')
+        vehicle2.price=request.POST.get('price')
+        # tag=form.cleaned_data.get('tags')
+        vehicle2.city=request.POST.get('city')
+        vehicle2.state=request.POST.get('state')
+        image=request.FILES.get('img')
+        # date_created=datetime.datetime.now()
+        # status='Available'
+        # print(image)
+        if image is not None:
+            vehicle2.image=image
+        
+        vehicle2.save()
+            
+        
+        messages.success(request, 'Vehicle updated successfully!')
+        vehicle2=Vehicle.objects.get(id=pk)
+        context={'vehicle':vehicle2}
+        return render(request,'RentingApp/myvehicleview.html',context)
+
+    context = {'vehicle': vehicle2}
+    return render(request, 'RentingApp/edit_vehicle.html', context)
