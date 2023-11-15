@@ -28,6 +28,7 @@ from datetime import date
 from django.contrib.auth.models import User,auth
 import datetime
 from dateutil import parser
+from django.contrib.auth import update_session_auth_hash
 
 
 
@@ -461,3 +462,18 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('home')
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+       
+        #return redirect('home')
+        return render(request,'RentingApp/thanks.html')
+    else:
+        return HttpResponse('Activation link is invalid!')
