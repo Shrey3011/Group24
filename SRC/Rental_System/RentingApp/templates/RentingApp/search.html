@@ -3,49 +3,200 @@
 
 {% block content %}
 
-<div>
-    <form action="{% url 'search_vehicle_filter' %}" method="POST">
-        {% csrf_token %}
-        fuel_type: 
-        <br>     
-        <input type="checkbox" name="petrol"> petrol
-        <input type="checkbox" name="diesel"> diesel
-        <input type="checkbox" name="Electric"> Electric
-        <input type="checkbox" name="Hybrid"> Hybrid
-        <br>
-        Price:
-        <br>
-        <input type="number" name="num1"> greater then and
-        <input type="number" name="num2"> less then
-        <br>
-        seats:
-        <br>
-        <input type="number" name="seat">
-        <br>
-        <input type="hidden" name="searched_v" value="{{searched}}">
-        <button class="btn btn-outline-primary" type="submit">
-            Search
+<style>
+  .icon-hover:hover {
+    border-color: #3b71ca !important;
+    background-color: white !important;
+  }
+
+  .icon-hover:hover i {
+    color: #3b71ca !important;
+  }
+
+  .icon-hover:hover span {
+    color: white;
+    background-color: lightslategray;
+  }
+</style>
+
+
+<section class="">
+  <div class="container">
+    <div class="row">
+      <!-- sidebar -->
+      <div class="col-lg-3">
+        <!-- Toggle button -->
+        <button id="showFilterButton" class="btn btn-outline-secondary mb-3 w-100 d-lg-none" type="button"
+          data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span>Show filter</span>
         </button>
+        <script>
+          $(function () {
+            $("#showFilterButton").click(function () {
+              $("#navbarSupportedContent").toggle();
+            });
+          });
+        </script>
+        <!-- Collapsible wrapper -->
+        <form action="{% url 'search_vehicle_filter' %}" method="POST">
+          {% csrf_token %}
+          <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo"
+                  style="margin-left: 10px;position: relative;margin-top: 10px;">
+                  Fuel Type
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                  aria-labelledby="headingTwo">
+                  <div class="accordion-body">
+                    <div>
+                      <!-- Checked checkbox -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="petrol" id="flexCheckChecked1" />
+                        <label class="form-check-label" for="flexCheckChecked1">Petrol</label>
+                        <span class="badge badge-secondary float-end">120</span>
+                      </div>
+                      <!-- Checked checkbox -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="diesel" id="flexCheckChecked2" />
+                        <label class="form-check-label" for="flexCheckChecked2">Diesel</label>
+                        <span class="badge badge-secondary float-end">15</span>
+                      </div>
+                      <!-- Checked checkbox -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="electric" value="" id="flexCheckChecked3" />
+                        <label class="form-check-label" for="flexCheckChecked3">EV</label>
+                        <span class="badge badge-secondary float-end">35</span>
+                      </div>
+                      <!-- Checked checkbox -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="hybrid" value="" id="flexCheckChecked4" />
+                        <label class="form-check-label" for="flexCheckChecked4">Hybrid</label>
+                        <span class="badge badge-secondary float-end">89</span>
+                      </div>
 
-    </form>
-</div>
-<br>
-<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
+                  Price
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show"
+                  aria-labelledby="headingThree">
+                  <div class="accordion-body">
+                    <script>
+                      $(function () {
+                        $("#searchButton").click(function () {
+                          // Get the entered values
+                          var minPrice = $("#minPrice").val();
+                          var maxPrice = $("#maxPrice").val();
+
+                          // Check if values are within the allowed range
+                          if (minPrice < 0 || minPrice > 99999 || maxPrice < 0 || maxPrice > 99999) {
+                            alert("Please enter valid price values within the range of 0 to 99999.");
+                            return;
+                          }
+
+                          // Perform your search or other actions
+                          searchFunction();
+                        });
+                      });
+                    </script>
+
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Min
+                        </p>
+                        <div class="form-outline">
+                          <input type="number" id="minPrice" name="num1" class="form-control" min="0" max="99999" />
+                          <label class="form-label" for="minPrice"></label>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Max
+                        </p>
+                        <div class="form-outline">
+                          <input type="number" id="maxPrice" name="num2" class="form-control" min="0" max="99999" />
+                          <label class="form-label" for="maxPrice"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-white w-100 border border-secondary">apply</button> -->
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
+
+                  Seats
+                </h2>
+                <div class="form-outline">
+                  <input type="number" id="" name="seat" class="form-control" min="1" max="100" />
+                  
+                </div>
+              </div>
+              <div class="accordion-item">
+
+                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show"
+                  aria-labelledby="headingThree">
+                  <div class="accordion-body">
+
+                    <div>
+                      <input type="hidden" name="searched_v" value="{{searched}}">
+                      <button class="btn btn-outline-secondary mb-3 w-100" id="searchButton" type="submit"
+                      onclick="searchFunction()"><span>Search</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- sidebar -->
+      <!-- content -->
+      <div class="col-lg-9">
+
+        <div class="row">
+
+          {% for i in vehicles %}
+
+          <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
+            <div class="card w-100 my-2 shadow-2-strong">
+              <img src="{{i.image.url}}" class="card-img-top" />
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex flex-row">
+                  <h5 class="mb-1 me-1">Price: {{i.price}}</h5>
+
+                </div>
+                <p class="card-text">Company: {{i.company}}</p>
+                <p class="card-text">Name: {{i.model}}</p>
+                <div class="card-footer d-flex align-items-center pt-3 px-0 pb-0 mt-auto">
+                  <a href="{% url 'productview' i.id %}" class="btn btn-primary shadow-0 me-1"
+                    style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View</a>
+                  <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
 
 
-    {% if searched %}
-    <h4>Your search result for {{searched}} is ...</h4>
+        </div>
 
-    {% else %}
-    <h4>You forgot to search</h4>
-    {% endif %}
+        <hr />
 
-    {% for i in vehicles %}
-
-    <a href="{% url 'productview' i.id %}">{{i.model}}</a>
-    <br>
-
-    {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
