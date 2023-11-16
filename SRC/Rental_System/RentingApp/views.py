@@ -114,7 +114,13 @@ def logoutuser(request):
 def home(request):
     vehicle=Vehicle.objects.all()
     vehicle=vehicle.filter(status='Available')
-    context={'vehicle':vehicle}
+    customer=request.user.customer
+    vehicles=[]
+    for i in vehicle:
+        if i.owner!=customer:
+            vehicles.append(i)
+    
+    context={'vehicle':vehicles}
     return render(request,'RentingApp/home.html',context)
 
 @login_required(login_url='login')
