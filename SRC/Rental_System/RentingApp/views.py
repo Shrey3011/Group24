@@ -228,7 +228,7 @@ def reject_request(request , id):
     requests_ac.status='Rejected'
     subject = 'Your Request Has Been Rejected'
     message = 'Your request to rent the vehicle has been Rejected!'
-    from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+    from_email = 'djk251508194@gmail.com'  # Replace with your email
     recipient = requests_ac.seeker.email
     context = {
         'customer_name': requests_ac.seeker.firstname,
@@ -258,7 +258,7 @@ def accept_request(request , id):
     requests.status='Accepted'
     subject = 'Your Request Has Been Accepted'
     message = 'Your request to rent the vehicle has been accepted!'
-    from_email = 'mahaveersinh2106@gmail.com'  
+    from_email = 'djk251508194@gmail.com'  
     recipient = requests.seeker.email
     context = {
     'customer_name': requests.seeker.firstname,
@@ -279,7 +279,7 @@ def accept_request(request , id):
             i.status = 'Rejected'
             subject = 'Your Request Has Been Rejected'
             message = 'Your request to rent the vehicle has been Rejected!'
-            from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+            from_email = 'djk251508194@gmail.com'  # Replace with your email
             recipient = i.seeker.email
             context = {
                 'customer_name': i.seeker.firstname,
