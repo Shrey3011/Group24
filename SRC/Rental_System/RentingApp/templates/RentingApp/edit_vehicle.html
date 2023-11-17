@@ -1,14 +1,46 @@
 {% extends 'RentingApp/main.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/add.css' %}">
 
-<div class="container">
-  <h2>Edit Vehicle</h2>
-  <form method="POST" enctype="multipart/form-data">
+
+<!--Basic Info-->
+<h1 class="basic">Edit Info</h1>
+<form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-  </form>
-</div>
+    <!-- Basic Info Form -->
+    <div class="form">
+        <fieldset class="basicinfo">
+            <input type="text" class="txtbox" value="{{vehicle.company}}" name="company" placeholder="Company:" required>
+            <input type="text" class="txtbox" value="{{vehicle.model}}" name="model" placeholder="Model:" required>
+            <select class="fuel" name="fuel" selected="{{vehicle.fuel_type}}" placeholder="Fuel type:" required>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+            </select>
+            <input type="number" class="txtbox" min="1" value="{{vehicle.seats}}" name="capacity" placeholder="Seating Capacity:" required>
+            <input type="text" class="txtbox" value="{{vehicle.city}}" name="city" placeholder="City:" required>
+            <input type="text" class="txtbox" value="{{vehicle.state}}" name="state" placeholder="State:" required>
+            <textarea class="addinfo" name="addinfo" placeholder="{{vehicle.about}}" rows="4"></textarea>
+            <input type="number" class="txtbox" min="1" value="{{vehicle.price}}" name="price" placeholder="Price (per day):" required><br>
+            <label class="img">Image:
+
+              <div class="col-md-auto">
+                <div class="card card-body">
+                    <img class="profile-pic" src="{{vehicle.image.url}}">
+                    
+                </div>
+              </div>
+        
+              <input type="file" class="img" name="img" accept="image/*">
+            </label>
+        </fieldset>
+    </div>
+
+    <input type="submit" value="Save Changes" class="submit">
+    <a href="{% url 'myvehicleview' vehicle.id %}">Back</a>
+</form>
+<!--end of Basic Info-->
 
 {% endblock %}

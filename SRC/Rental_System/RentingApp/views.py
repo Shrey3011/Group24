@@ -114,7 +114,13 @@ def logoutuser(request):
 def home(request):
     vehicle=Vehicle.objects.all()
     vehicle=vehicle.filter(status='Available')
-    context={'vehicle':vehicle}
+    customer=request.user.customer
+    vehicles=[]
+    for i in vehicle:
+        if i.owner!=customer:
+            vehicles.append(i)
+    
+    context={'vehicle':vehicles}
     return render(request,'RentingApp/home.html',context)
 
 @login_required(login_url='login')
@@ -134,31 +140,29 @@ def customer(request):
 @login_required(login_url='login')
 def addvehicle(request):
     # customer=request.user.customer
-    form=AddvehicleForm()
+    # form=AddvehicleForm()
     if request.method=='POST':
-        form=AddvehicleForm(request.POST,request.FILES)
-        if form.is_valid():
-            # print(form['owner'])
-            customer_object = request.user.customer
-            company=form.cleaned_data.get('company')
-            model=form.cleaned_data.get('model')
-            fuel_type=form.cleaned_data.get('fuel_type')
-            seats=form.cleaned_data.get('seats')
-            about=form.cleaned_data.get('about')
-            price=form.cleaned_data.get('price')
-            # tag=form.cleaned_data.get('tags')
-            city=form.cleaned_data.get('city')
-            state=form.cleaned_data.get('state')
-            image=form.cleaned_data.get('image')
-            date_created=form.cleaned_data.get('date_created')
-            status='Available'
-            Vehicle.objects.create(owner = customer_object,company=company,model=model,fuel_type=fuel_type,
-                           seats=seats,about=about,price=price,city=city,state=state,image=image,
-                           date_created=date_created,status=status)
-            return redirect('home')
+        # print(form['owner'])
+        customer_object = request.user.customer
+        company=request.POST.get('company')
+        model=request.POST.get('model')
+        fuel_type=request.POST.get('fuel')
+        seats=request.POST.get('capacity')
+        about=request.POST.get('addinfo')
+        price=request.POST.get('price')
+        # tag=form.cleaned_data.get('tags')
+        city=request.POST.get('city')
+        state=request.POST.get('state')
+        image=request.FILES.get('img')
+        date_created=datetime.datetime.now()
+        status='Available'
+        Vehicle.objects.create(owner = customer_object,company=company,model=model,fuel_type=fuel_type,
+                        seats=seats,about=about,price=price,city=city,state=state,image=image,
+                        date_created=date_created,status=status)
+        return redirect('home')
 
-    context={'form':form}
-    return render(request,'RentingApp/addvehicle.html',context)
+    # context={'form':form}
+    return render(request,'RentingApp/addvehicle.html')
 
 @login_required(login_url='login')
 def productview(request,pk):
@@ -224,7 +228,7 @@ def reject_request(request , id):
     requests_ac.status='Rejected'
     subject = 'Your Request Has Been Rejected'
     message = 'Your request to rent the vehicle has been Rejected!'
-    from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+    from_email = 'djk251508194@gmail.com'  # Replace with your email
     recipient = requests_ac.seeker.email
     context = {
         'customer_name': requests_ac.seeker.firstname,
@@ -254,7 +258,7 @@ def accept_request(request , id):
     requests.status='Accepted'
     subject = 'Your Request Has Been Accepted'
     message = 'Your request to rent the vehicle has been accepted!'
-    from_email = 'mahaveersinh2106@gmail.com'  
+    from_email = 'djk251508194@gmail.com'  
     recipient = requests.seeker.email
     context = {
     'customer_name': requests.seeker.firstname,
@@ -275,7 +279,7 @@ def accept_request(request , id):
             i.status = 'Rejected'
             subject = 'Your Request Has Been Rejected'
             message = 'Your request to rent the vehicle has been Rejected!'
-            from_email = 'mahaveersinh2106@gmail.com'  # Replace with your email
+            from_email = 'djk251508194@gmail.com'  # Replace with your email
             recipient = i.seeker.email
             context = {
                 'customer_name': i.seeker.firstname,
@@ -477,3 +481,45 @@ def activate(request, uidb64, token):
         return render(request,'RentingApp/thanks.html')
     else:
         return HttpResponse('Activation link is invalid!')
+
+@login_required(login_url='login')
+def edit_vehicle(request , pk):
+    # vehicle = Vehicle.objects.filter(id = pk)
+    # form = AddvehicleForm(instance=vehicle)
+    vehicle2=Vehicle.objects.get(id=pk)
+
+    if request.method == 'POST':
+        # form = AddvehicleForm(request.POST, request.FILES, instance=vehicle)
+        # customer_object = request.user.customer
+        vehicle2.company=request.POST.get('company')
+        vehicle2.model=request.POST.get('model')
+        vehicle2.fuel_type=request.POST.get('fuel')
+        vehicle2.seats=request.POST.get('capacity')
+        vehicle2.about=request.POST.get('addinfo')
+        vehicle2.price=request.POST.get('price')
+        # tag=form.cleaned_data.get('tags')
+        vehicle2.city=request.POST.get('city')
+        vehicle2.state=request.POST.get('state')
+        image=request.FILES.get('img')
+        # date_created=datetime.datetime.now()
+        # status='Available'
+        # print(image)
+        if image is not None:
+            vehicle2.image=image
+        
+        vehicle2.save()
+            
+        
+        messages.success(request, 'Vehicle updated successfully!')
+        vehicle2=Vehicle.objects.get(id=pk)
+        context={'vehicle':vehicle2}
+        return render(request,'RentingApp/myvehicleview.html',context)
+
+    context = {'vehicle': vehicle2}
+    return render(request, 'RentingApp/edit_vehicle.html', context)
+
+@login_required(login_url='login')
+def delete_vehicle(request,pk):
+    vehicle=Vehicle.objects.get(id=pk)
+    vehicle.delete()
+    return redirect('myvehicle')
