@@ -207,10 +207,16 @@ def productview(request,pk):
 @login_required(login_url='login')
 def history(request):
     customer=request.user.customer
-    requests=Request_rent.objects.all()
-    requests1=requests.filter(status='Accepted',seeker=customer)
-    requests2=None
-    context={'requests1':requests1,'requests2':requests2}
+    vehicles=Vehicle.objects.all()
+    owner_vehicles = vehicles.filter(owner=customer)
+
+    requests = []
+    for i in Request_rent.objects.filter(status = 'Accepted') :
+        for j in owner_vehicles :
+            if j == i.vehicle :
+                requests.append(i)
+        
+    context={'requests':requests,'len1':len(requests)}
     return render(request,'RentingApp/history.html',context)
 
 @login_required(login_url='login')
