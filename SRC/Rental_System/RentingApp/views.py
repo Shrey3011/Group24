@@ -474,6 +474,16 @@ def activate(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
+
+        userall=User.objects.all()
+
+        for i in userall:
+
+            if (i.email==(user.email) and (i.is_active==True)):
+                return HttpResponse('An user with this email already exists')
+
+            
+
         user.is_active = True
         user.save()
        
