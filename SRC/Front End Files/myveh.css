@@ -1,7 +1,7 @@
 /* Change font-family of the whole page */
 
 * {
-    font-family: 'Josefin';
+    font-family: 'Josefin Slab';
 }
 
 body {
@@ -13,7 +13,6 @@ body {
 
 .vehicle-list {
     list-style: none;
-    width: 80%;
     /* Adjust the width as needed */
     margin-top: 8%;
 }
@@ -58,7 +57,7 @@ body {
     display: flex;
     flex-direction: column;
     /* Stack buttons vertically */
-    
+
 }
 
 
@@ -93,16 +92,17 @@ body {
     box-shadow: 3px 3px 6px black;
 }
 
-.msg-container{  
-    display: flex;  
+.msg-container {
+    display: flex;
     justify-content: center;
     margin-top: 6%;
 }
 
-.redirect{
+.redirect {
     width: 50%;
     margin-left: 8.444%;
 }
+
 
 
 /* To make it responsive */
@@ -120,10 +120,21 @@ body {
 
     .vehicle-list {
 
-        margin-top: 20%;
+        margin-top: 25%;
+        margin-left: 1%;
+        margin-right: 0%;
+        width: 100%;
+        font-size: 80%;
     }
 
-    .msg-container{
+    
+
+    .vehicle-item{
+
+        padding: 12px;
+        border-radius: 8.5px;
+    }
+    .msg-container {
 
         margin-top: 22%;
         margin-left: 16%;

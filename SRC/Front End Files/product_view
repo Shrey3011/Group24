@@ -1,0 +1,172 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .vehicle-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        margin-top: auto;
+    }
+
+    body {
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        /* background-color: #F5F5F5; */
+
+        background-image:url("{% static 'images/reg_back.webp' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(5px);
+
+    }
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    h5 {
+        margin-left: 8;
+    }
+
+    .specs {
+        width: 100%;
+        height: 35px;
+        font-size: 18px;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    
+
+    .request {
+        padding-left: auto;
+        margin: auto;
+    }
+
+    .btn-request {
+        background-color: #EF8354;
+            color: #000000;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            
+            font-size: 20px;
+            align-items: center;
+            font-family: 'Josefin Slab', sans-serif;
+            margin: 15px 0;
+    }
+</style>
+<section class="container my-3 pt-3">
+    <div class="row mt-1">
+        <div class="col-lg-6">
+            <img src="{{vehicle.image.url}}" class=" img-fluid card vehicle-image" alt="">
+        </div>
+        <div class="col-lg-6">
+
+            <div class="specs"> Model: {{vehicle.model}} </div>
+            <div class="specs"> Company: {{vehicle.company}} </div>
+            <div class="specs"> Fuel Type: {{vehicle.fuel_type}}</div>
+            <div class="specs"> Seats: {{vehicle.seats}}</div>
+            <div class="specs"> About: {{vehicle.about}}</div>
+            <div class="specs"> City: {{vehicle.city}}</div>
+            <div class="specs"> Price: {{vehicle.price}}</div>
+
+        </div>
+    </div>
+</section>
+
+{% if user != owner %}
+
+<div class="row">
+    <div class="col-md">
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <section class="container-sm">
+                <div class="card card-body">
+
+                    <div class="row">
+                        <div class="col">
+                            <h5>Start Date:</h5> <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <h5>End Date:</h5>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="text-center"> 
+                <input class="btn-request" type="submit" value="Request Owner">
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
+
+{% endblock %}
+
+
+
+<!-- <div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <img class="profile-pic" src="{{vehicle.image.url}}">
+            
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card card-body">
+            company:
+            {{vehicle.company}}
+            <br>
+            model:
+            {{vehicle.model}}
+            <br>
+            price:
+            {{vehicle.price}}
+            <br>
+            fuel_type:
+            {{vehicle.fuel_type}}
+            <br>
+            seats:
+            {{vehicle.seats}}
+            <br>
+            about:
+            {{vehicle.about}}
+            <br>
+            city:
+            {{vehicle.city}}
+            <br>
+            Status:
+            {{vehicle.status}}
+            <br>
+        </div>
+    </div>
+
+</div> -->
