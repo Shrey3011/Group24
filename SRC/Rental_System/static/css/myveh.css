@@ -1,0 +1,120 @@
+
+/* Change font-family of the whole page */
+
+* {
+    font-family: 'Josefin';
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.vehicle-list {
+    list-style: none;
+    padding: 0;
+    width: 80%; /* Adjust the width as needed */
+    margin-top: 8%;
+}
+
+/* Items in the list */
+
+.vehicle-item {
+    border: 1px solid black;
+    margin: 2% 0;
+    padding: 25px; /* Increase the padding to make the items larger */
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #bfc0c0;
+}
+
+.vehicle-image {
+    max-width: 180px; /* Increase the max-width to make the images larger */
+    margin-right: 30px; /* Increase the margin to create more spacing */
+    border-radius: 10px;
+    border-radius: 8px;
+}
+
+/* To have same length of all row*/
+
+.vehicle-details {
+    flex: 1;
+
+}
+
+
+.vehicle-name {
+    font-weight: bold;
+    font-size: 2em;
+    margin-left: 5%;
+}
+
+.vehicle-price {
+    color: #007bff;
+    margin-left: 5%;
+    font-size: 1em;
+}
+
+
+/* To stck buttons into a single column */
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+}
+
+
+/* To change button size */
+
+.button {
+    color: #fff;
+    border: none;
+    padding: 0.5em 2em; /* Increase the padding to make the buttons larger */
+    cursor: pointer;
+    text-decoration: none; /* Remove the default hyperlink underline */
+    margin: 5px 0; /* Add spacing between stacked buttons */
+    border-radius: 6px;
+    text-align: center;
+}
+
+
+/* Change edit button colour */
+
+.edit-button {
+    background-color: #28a745;
+}
+
+/* Change remove button color */
+
+.remove-button {
+    background-color: #dc3545;
+}
+
+
+/* To make it responsive */
+
+@media (max-width: 868px) {
+    * {
+        
+        font-size: 80%;
+    }
+
+    .vehicle-image{
+
+        width: 60px;
+    }
+
+    .vehicle-list{
+
+        margin-top: 20%;
+    }
+
+    .button{
+
+        border-radius: 2px;
+    }
+    
+}
