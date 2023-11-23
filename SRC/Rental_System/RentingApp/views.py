@@ -184,7 +184,7 @@ def productview(request,pk):
         # start_date=form.cleaned_data.get('start_date')
         # end_date=form.cleaned_data.get('end_date')
         number_of_days=abs(start_date_obj-end_date_obj).days
-        if (start_date_obj > end_date_obj or start_date_obj < date.today() or end_date_obj < date.today()):
+        if (start_date_obj > end_date_obj or start_date_obj <= date.today() or end_date_obj <= date.today()):
             messages.info(request,'Invalid Duration')
             return render(request,'RentingApp/productview.html',context)
         
