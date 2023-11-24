@@ -1,374 +1,232 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'RentingApp/main.html' %}
 
-<head>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script>
-        $(function () {
-            $("#includeHtml").load("navbar.html");
-        });
-    </script>
-    
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
+{% load static %}
+{% block content %}
 
-<body>
-  <style>
-    .icon-hover:hover {
-  border-color: #3b71ca !important;
-  background-color: white !important;
-}
-
-.icon-hover:hover i {
-  color: #3b71ca !important;
-}
-.icon-hover:hover span {
-    color: white ;
-    background-color: lightslategray;
+<style>
+  .icon-hover:hover {
+    border-color: #3b71ca !important;
+    background-color: white !important;
   }
 
-  </style>
-    <div id="includeHtml"></div>
+  .icon-hover:hover i {
+    color: #3b71ca !important;
+  }
 
-    <section class="">
-      <div class="container">
-        <div class="row">
-          <!-- sidebar -->
-          <div class="col-lg-3">
-            <!-- Toggle button -->
-            <button
-            id="showFilterButton"
-                    class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
-                    type="button"
-                    data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-              <span>Show filter</span>
-            </button>
-            <script>
-              $(function () {
-                $("#showFilterButton").click(function () {
-                  $("#navbarSupportedContent").toggle();
-                });
-              });
-            </script>
-            <!-- Collapsible wrapper -->
-            <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
-              <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo" style="margin-left: 10px;position: relative;margin-top: 10px;">
-                    Fuel Type
-                  </h2>
-                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
-                    <div class="accordion-body">
-                      <div>
-                        <!-- Checked checkbox -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked />
-                          <label class="form-check-label" for="flexCheckChecked1">Petrol</label>
-                          <span class="badge badge-secondary float-end">120</span>
-                        </div>
-                        <!-- Checked checkbox -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked />
-                          <label class="form-check-label" for="flexCheckChecked2">Diesel</label>
-                          <span class="badge badge-secondary float-end">15</span>
-                        </div>
-                        <!-- Checked checkbox -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked />
-                          <label class="form-check-label" for="flexCheckChecked3">EV</label>
-                          <span class="badge badge-secondary float-end">35</span>
-                        </div>
-                        <!-- Checked checkbox -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked />
-                          <label class="form-check-label" for="flexCheckChecked4">Hybrid</label>
-                          <span class="badge badge-secondary float-end">89</span>
-                        </div>
-                        <!-- Default checkbox -->
-                        <!-- <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                          <label class="form-check-label" for="flexCheckDefault">Honda</label>
-                          <span class="badge badge-secondary float-end">30</span>
-                        </div>
-                         Default checkbox -->
-                        <!-- <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                          <label class="form-check-label" for="flexCheckDefault">Suzuki</label>
-                          <span class="badge badge-secondary float-end">30</span>
-                        </div> --> 
+  .icon-hover:hover span {
+    color: white;
+    background-color: lightslategray;
+  }
+</style>
+
+
+<section class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <button id="showFilterButton" class="btn btn-outline-secondary mb-3 w-100 d-lg-none" type="button"
+          data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span>Show filter</span>
+        </button>
+        <script>
+          $(function () {
+            $("#showFilterButton").click(function () {
+              $("#navbarSupportedContent").toggle();
+            });
+          });
+        </script>
+        <form action="{% url 'search_vehicle_filter' %}" method="POST">
+          {% csrf_token %}
+          <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo"
+                  style="margin-left: 10px;position: relative;margin-top: 10px;">
+                  Fuel Type
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                  aria-labelledby="headingTwo">
+                  <div class="accordion-body">
+                    <div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="petrol" id="flexCheckChecked1" />
+                        <label class="form-check-label" for="flexCheckChecked1">Petrol</label>
                       </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="diesel" id="flexCheckChecked2" />
+                        <label class="form-check-label" for="flexCheckChecked2">Diesel</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="electric" value="" id="flexCheckChecked3" />
+                        <label class="form-check-label" for="flexCheckChecked3">EV</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="hybrid" value="" id="flexCheckChecked4" />
+                        <label class="form-check-label" for="flexCheckChecked4">Hybrid</label>
+                      </div>
+
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
-                    Price
-                  </h2>
-                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                    <div class="accordion-body">
-                      <script>
-                        $(function () {
-                          $("#searchButton").click(function () {
-                            // Get the entered values
-                            var minPrice = $("#minPrice").val();
-                            var maxPrice = $("#maxPrice").val();
-                      
-                            // Check if values are within the allowed range
-                            if (minPrice < 0 || minPrice > 99999 || maxPrice < 0 || maxPrice > 99999) {
-                              alert("Please enter valid price values within the range of 0 to 99999.");
-                              return;
-                            }
-                      
-                            // Perform your search or other actions
-                            searchFunction();
-                          });
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
+                  Price
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show"
+                  aria-labelledby="headingThree">
+                  <div class="accordion-body">
+                    <script>
+                      $(function () {
+                        $("#searchButton").click(function () {
+                          var minPrice = $("#minPrice").val();
+                          var maxPrice = $("#maxPrice").val();
+
+                          if (minPrice < 0 || minPrice > 99999 || maxPrice < 0 || maxPrice > 99999) {
+                            alert("Please enter valid price values within the range of 0 to 99999.");
+                            return;
+                          }
+
+                          searchFunction();
                         });
-                      </script>
-                      
-                      <div class="row mb-3">
-                        <div class="col-6">
-                          <p class="mb-0">
-                            Min
-                          </p>
-                          <div class="form-outline">
-                            <input type="number" id="minPrice" class="form-control" min="0" max="99999" />
-                            <label class="form-label" for="minPrice">$0</label>
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <p class="mb-0">
-                            Max
-                          </p>
-                          <div class="form-outline">
-                            <input type="number" id="maxPrice" class="form-control" min="0" max="99999" />
-                            <label class="form-label" for="maxPrice">$1,0000</label>
-                          </div>
+                      });
+                    </script>
+
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Min
+                        </p>
+                        <div class="form-outline">
+                          <input type="number" id="minPrice" name="num1" class="form-control" min="0" max="99999" />
+                          <label class="form-label" for="minPrice"></label>
                         </div>
                       </div>
-                      <!-- <button type="button" class="btn btn-white w-100 border border-secondary">apply</button> -->
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Max
+                        </p>
+                        <div class="form-outline">
+                          <input type="number" id="maxPrice" name="num2" class="form-control" min="0" max="99999" />
+                          <label class="form-label" for="maxPrice"></label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
-                   
-                      Seats
-                  </h2>
-                  <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                    <div class="accordion-body">
-                      <input type="checkbox" class="btn-check border justify-content-center" id="btn-check1" checked autocomplete="off" />
-                      <label class="btn btn-white mb-1 px-1" style="width: 60px;" for="btn-check1">1</label>
-                      <input type="checkbox" class="btn-check border justify-content-center" id="btn-check2" checked autocomplete="off" />
-                      <label class="btn btn-white mb-1 px-1" style="width: 60px;" for="btn-check2">2</label>
-                      <input type="checkbox" class="btn-check border justify-content-center" id="btn-check3" checked autocomplete="off" />
-                      <label class="btn btn-white mb-1 px-1" style="width: 60px;" for="btn-check3">4</label>
-                      <input type="checkbox" class="btn-check border justify-content-center" id="btn-check4" checked autocomplete="off" />
-                      <label class="btn btn-white mb-1 px-1" style="width: 60px;" for="btn-check4">7</label>
-                    </div>
-                  </div>
+              </div>
+              <div class="accordion-item">
+                <br>
+                <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
+
+                  Seats
+                </h2>
+                <div class="form-outline">
+                  <input type="number" id="" name="seat" class="form-control" min="1" max="100" style="width: 80%;margin-left: 2rem;" />
+                  
                 </div>
-                <div class="accordion-item">
-                  <!-- <h2 class="accordion-header" id="headingThree" style="margin-left: 10px;position: relative;">
-                    
-                      Ratings
-                  </h2> -->
-                  <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                    <div class="accordion-body">
-                      <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked />
-                        <label class="form-check-label" for="flexCheckDefault">
-                          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
-                          <i class="fas fa-star text-warning"></i>
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked />
-                        <label class="form-check-label" for="flexCheckDefault">
-                          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
-                          <i class="fas fa-star text-secondary"></i>
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked />
-                        <label class="form-check-label" for="flexCheckDefault">
-                          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i>
-                          <i class="fas fa-star text-secondary"></i>
-                        </label>
-                      </div> -->
-                      <!-- Default checkbox -->
-                      <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked />
-                        <label class="form-check-label" for="flexCheckDefault">
-                          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>
-                          <i class="fas fa-star text-secondary"></i>
-                        </label>
-                      </div> -->
-                      <div>
-                        <button class="btn btn-outline-dark mb-3 w-100" id="searchButton" type="button" onclick="searchFunction()"><span>Search</span></button>
-                    </div>
+                <br>
+              </div>
+              <div class="accordion-item">
+
+                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show"
+                  aria-labelledby="headingThree">
+                  <div class="accordion-body">
+
+                    <div>
+                      <input type="hidden" name="searched_v" value="{{searched}}">
+                      <button class="btn btn-outline-secondary mb-3 w-100" id="searchButton" type="submit"
+                      onclick="searchFunction()"><span>Search</span></button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- sidebar -->
-          <!-- content -->
-          <div class="col-lg-9">
-    
-            <div class="row">
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <div class="d-flex flex-row">
-                      <h5 class="mb-1 me-1">$34,50</h5>
-                      <span class="text-danger"><s>$49.99</s></span>
-                    </div>
-                    <p class="card-text">T-shirts with multiple colors, for men and lady</p>
-                    <div class="card-footer d-flex align-items-center pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View car</a>
-                    <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
+        </form>
+      </div>
+      <div class="col-lg-9">
+
+        <div class="row">
+
+          {% for i in vehicles %}
+
+          <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
+            <div class="card w-100 my-2 shadow-2-strong">
+              <img src="{{i.image.url}}" class="card-img-top" />
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex flex-row">
+                  <h5 class="mb-1 me-1">Price: {{i.price}}</h5>
+
                 </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$120.00</h5>
-                    <p class="card-text">Winter Jacket for Men and Women, All sizes</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$120.00</h5>
-                    <p class="card-text">T-shirts with multiple colors, for men and lady</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" style="aspect-ratio: 1 / 1"/>
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$120.00</h5>
-                    <p class="card-text">Blazer Suit Dress Jacket for Men, Blue color</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" style="aspect-ratio: 1 / 1" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$510.00</h5>
-                    <p class="card-text">Slim sleeve wallet Italian leather - multiple colors</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$79.99</h5>
-                    <p class="card-text">T-shirts with multiple colors, for men and lady</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$120.00</h5>
-                    <p class="card-text">Winter Jacket for Men and Women, All sizes</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$120.00</h5>
-                    <p class="card-text">T-shirts with multiple colors, for men and lady</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="images/alto.jpg" class="card-img-top" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">$43.50</h5>
-                    <p class="card-text">Summer New Men's Denim Jeans Shorts</p>
-                    <div class="card-footer d-flex align-items-center pt-3 px-0 pb-0 mt-auto">
-                      <a href="#!" class="btn btn-primary shadow-0 me-1" style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View Car</a>
-                      <!-- <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i class="fas fa-heart fa-lg text-secondary px-1"></i></a> -->
-                    </div>
-                  </div>
+                <p class="card-text">Company: {{i.company}}</p>
+                <p class="card-text">Name: {{i.model}}</p>
+                <div class="card-footer d-flex align-items-center pt-3 px-0 pb-0 mt-auto">
+                  <a href="{% url 'productview' i.id %}" class="btn btn-primary shadow-0 me-1"
+                    style="margin-left: 15px;margin-bottom: 15px; width: 240px;">View</a>
                 </div>
               </div>
             </div>
-    
-            <hr />
-    
-            <!-- Pagination -->
-            <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <!-- Pagination -->
           </div>
+
+          {% endfor %}
+
+
         </div>
-      </div>            
-    </section>
-</body>
+
+        <hr />
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% endblock %}
+
+<!-- <div>
+    <form action="{% url 'search_vehicle_filter' %}" method="POST">
+        {% csrf_token %}
+        fuel_type: 
+        <br>     
+        <input type="checkbox" name="petrol"> petrol
+        <input type="checkbox" name="diesel"> diesel
+        <input type="checkbox" name="Electric"> Electric
+        <input type="checkbox" name="Hybrid"> Hybrid
+        <br>
+        Price:
+        <br>
+        <input type="number" name="num1"> greater then and
+        <input type="number" name="num2"> less then
+        <br>
+        seats:
+        <br>
+        <input type="number" name="seat">
+        <br>
+        <input type="hidden" name="searched_v" value="{{searched}}">
+        <button class="btn btn-outline-primary" type="submit">
+            Search
+        </button>
+
+    </form>
+</div>
+<br>
+<br>
+
+
+    {% if searched %}
+    <h4>Your search result for {{searched}} is ...</h4>
+
+    {% else %}
+    <h4>You forgot to search</h4>
+    {% endif %}
+
+    {% for i in vehicles %}
+
+    <a href="{% url 'productview' i.id %}">{{i.model}}</a>
+    <br>
+
+    {% endfor %} -->
