@@ -1,3 +1,8 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+
 <html>
 <head>
    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -30,12 +35,13 @@
 }
 .table th,
 .table td {
-  text-align: center; /* Center text horizontally */
-  vertical-align: middle; /* Center text vertically */
+  text-align: center; 
+  vertical-align: middle;
 }
   </style>
 </head>
 <body>
+    {% if len1 != 0 %}
     <div id="includeHtml"></div>
     <div class="container-fluid">
         <div class="container">
@@ -44,36 +50,42 @@
             <table class="table border-bottom" >
               <thead>
                 <tr>
-                  <th scope="col">Vehicle</th>
-                  <th scope="col">Vehicle_Name</th>
-                  <th scope="col">Start_date</th>
-                  <th scope="col">End_date</th>
+                  <th scope="col"></th>
+                  <th scope="col">Vehicle Name</th>
+                  <th scope="col">Start date</th>
+                  <th scope="col">End date</th>
                   <th scope="col">Total</th>
                   <th scope="col">Seeker</th>
                 </tr>
               </thead>
               <tbody>
+                {% for i in requests %}
                 <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">creta</a></td>
-                  <td>Sept.26,2023</td>
-                  <td>Sept.30,2023</td>
-                  <td>6000</td>
-                  <td><a href="#!">test3_customer</a></td>
+                    <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                        style="height: 150px;width: 200px;"></img></a>
+                  <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                    <td>{{i.start_date}}</td>
+                    <td>{{i.end_date}}</td>
+                    <td>{{i.total}}</td>
+                    <td><a href="{% url 'profilepath' i.seeker.id %}">{{i.seeker}}</a></td>
                 </tr>
-                <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">swift</a></td>
-                  <td>Sept.28,2023</td>
-                  <td>Sept.29,2023</td>
-                  <td>1400</td>
-                  <td><a href="#!">test3_customer</a></td>
-                </tr>
-                <!-- Add more rows as needed -->
+                {% endfor %}
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
 </body>
+{% else %}
+<div class="container-fluid">
+    <div class="container">
+        <h2 class="mb-4">No History Yet</h2>
+        <div class="table-responsive">
+    </div>
+    </div>
+    </div>
+{% endif %}
 </html>
+
+{% endblock %}
