@@ -1,182 +1,219 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
 <html>
+
 <head>
-   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-   <script>
-      $(function() {
-         $("#includeHtml").load("navbar.html");
-      });
-   </script>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-   <style>
-    body {
-      background-color: #f8f9fa;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <style>
+        body {
+             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    .container {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin-top: 50px;
-    }
-    .th {
-  display: flex;
-  align-items: center;
-}
-.table th,
-.table td {
-  text-align: center; /* Center text horizontally */
-  vertical-align: middle; /* Center text vertically */
-}
-  </style>
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .th {
+            display: flex;
+            align-items: center;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+             vertical-align: middle;
+         }
+    </style>
 </head>
-<body>
-    <div id="includeHtml"></div>
+{% if len1 != 0 or len2 != 0 or len3 != 0 or len4 != 0 %}
+{% if len1 > 0 %}
+  <body>
+     <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Pending Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests1 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}
+                            <td><a class='button' href="{% url 'delete_request' i.id %}">Delete Request</a>
+                         </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if len2 > 0 %}
     <div class="container-fluid">
         <div class="container">
-          <h2 class="mb-4">Pending Requests</h2>
-          <div class="table-responsive">
-            <table class="table border-bottom" >
-              <thead>
-                <tr>
-                  <th scope="col">Vehicle</th>
-                  <th scope="col">Vehicle_Name</th>
-                  <th scope="col">Start_date</th>
-                  <th scope="col">End_date</th>
-                  <th scope="col">No of Days</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Owner</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">creta</a></td>
-                  <td>Sept.26,2023</td>
-                  <td>Sept.30,2023</td>
-                  <td>1</td>
-                  <td>6000</td>
-                  <td>Pending</td>
-                  <td><a href="#!">test3_customer</a></td>
-                  <td><button class="btn-danger">Delete Request</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
-              </tbody>
-            </table>
-          </div>
+            <h2 class="mb-4">Accepted Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests2 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <div class="container-fluid">
+    </div>
+    {% endif %}
+
+    {% if len3 > 0 %}
+    <div class="container-fluid">
         <div class="container">
-          <h2 class="mb-4">Accepted Requests</h2>
-          <div class="table-responsive">
-            <table class="table border-bottom" >
-              <thead>
-                <tr>
-                  <th scope="col">Vehicle</th>
-                  <th scope="col">Vehicle_Name</th>
-                  <th scope="col">Start_date</th>
-                  <th scope="col">End_date</th>
-                  <th scope="col">No of Days</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Owner</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">creta</a></td>
-                  <td>Sept.26,2023</td>
-                  <td>Sept.30,2023</td>
-                  <td>1</td>
-                  <td>6000</td>
-                  <td>Pending</td>
-                  <td><a href="#!">test3_customer</a></td>
-                </tr>
-                <!-- Add more rows as needed -->
-              </tbody>
-            </table>
-          </div>
+            <h2 class="mb-4">Rejected Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests3 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}">{{i.vehicle.owner}}
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <div class="container-fluid">
+    </div>
+    {% endif %}
+
+    {% if len4 > 0 %}
+    <div class="container-fluid">
         <div class="container">
-          <h2 class="mb-4">Rejected Requests</h2>
-          <div class="table-responsive">
-            <table class="table border-bottom" >
-              <thead>
-                <tr>
-                  <th scope="col">Vehicle</th>
-                  <th scope="col">Vehicle_Name</th>
-                  <th scope="col">Start_date</th>
-                  <th scope="col">End_date</th>
-                  <th scope="col">No of Days</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Owner</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">creta</a></td>
-                  <td>Sept.26,2023</td>
-                  <td>Sept.30,2023</td>
-                  <td>1</td>
-                  <td>6000</td>
-                  <td>Pending</td>
-                  <td><a href="#!">test3_customer</a></td>
-                </tr>
-                <!-- Add more rows as needed -->
-              </tbody>
-            </table>
-          </div>
+            <h2 class="mb-4">Requests For Your Vehicle</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Seeker</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests4 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.seeker.id %}">{{i.seeker}}
+                            <td><a class='button' href="{% url 'accept_request' i.id %}">Accept Request</a>
+                             <td><a class='button' href="{% url 'delete_request' i.id %}">Reject Request</a>
+                         </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <div class="container-fluid">
-        <div class="container">
-          <h2 class="mb-4">Requests For Vehicle</h2>
-          <div class="table-responsive">
-            <table class="table border-bottom" >
-              <thead>
-                <tr>
-                  <th scope="col">Vehicle</th>
-                  <th scope="col">Vehicle_Name</th>
-                  <th scope="col">Start_date</th>
-                  <th scope="col">End_date</th>
-                  <th scope="col">No of Days</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Seeker</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="#!"><img src="images/nexon.jpg" style="height: 150px;width: 200px;"></img></a></td>
-                  <td><a href="#!">creta</a></td>
-                  <td>Sept.26,2023</td>
-                  <td>Sept.30,2023</td>
-                  <td>1</td>
-                  <td>6000</td>
-                  <td>Pending</td>
-                  <td><a href="#!">test3_customer</a></td>
-                  <td><button class="btn-success">Accept Request</button><span>&nbsp&nbsp</span><button class="btn-danger">Delete Request</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <br>
+    </div>
+    <br>
 </body>
+    {% endif %}
+    {% else %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Requests Yet To Come</h2>
+            <div class="table-responsive">
+        </div>
+        </div>
+        </div>
+    {% endif %}
 </html>
+
+{% endblock %}
