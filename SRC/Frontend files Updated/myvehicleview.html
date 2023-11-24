@@ -1,0 +1,107 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .vehicle-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        margin-top: auto;
+    }
+
+    body {
+        justify-content: center;
+        align-items: center;
+        height: 100%;  
+        margin: 0;
+    }
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    h5 {
+        margin-left: 8;
+    }
+
+    .specs {
+        width: 100%;
+        height: 35px;
+        font-size: 18px;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    
+
+    .request {
+        padding-left: auto;
+        margin: auto;
+    }
+
+    .btn-request {
+        background-color: #EF8354;
+            color: #000000;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            
+            font-size: 20px;
+            align-items: center;
+            font-family: 'Josefin Slab', sans-serif;
+            margin: 15px 0;
+    }
+
+    .about{
+        min-width: 300px;
+        min-height: 90px;
+        text-overflow: inherit;
+        align-items: flex-start;
+        
+        padding-top: 3px;
+    }
+
+    .btns{
+            background-color: #568e63 !important;
+            border-color: #568e63 !important;
+         }
+</style>
+<section class="container my-3 pt-3">
+    <div class="row mt-1">
+        <div class="col-lg-6">
+            <img src="{{vehicle.image.url}}" class=" shadow img-fluid card vehicle-image" alt="">
+        </div>
+        <div class="col-lg-6">
+
+            <div class="specs shadow"> Model: {{vehicle.model}} </div>
+            <div class="specs shadow"> Company: {{vehicle.company}} </div>
+            <div class="specs shadow"> Fuel Type: {{vehicle.fuel_type}}</div>
+            <div class="specs shadow"> Seats: {{vehicle.seats}}</div>
+            <div class="specs shadow about"> About: {{vehicle.about}}</div>
+            <div class="specs shadow"> City: {{vehicle.city}}</div>
+            <div class="specs shadow"> Price: {{vehicle.price}}</div>
+            <a href="{% url 'edit_vehicle' vehicle.id %}"class="btn btn-info btns" role="button">Edit Vehicle</a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script> -->
+
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
+
+
+{% endblock %}

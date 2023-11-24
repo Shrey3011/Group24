@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<body>
+    <h1>Your Request Has Been Accepted</h1>
+    <p>Dear {{ customer_name }},</p>
+    <p>We are pleased to inform you that your request to rent a vehicle has been accepted by the owner. Here are the details of your request:</p>
+    <p>Request ID: {{ request_id }}</p>
+    <p>Vehicle: {{ vehicle_model }}</p>
+    <p>Rental Start Date: {{ start_date }}</p>
+    <p>Rental End Date: {{ end_date }}</p>
+    <p>Owner: {{ owner_name }}</p>
+    <p>Owner's Contact Information: {{ owner_email }}</p>
+    <p>Thank you for using RentEasy. We wish you a safe and enjoyable journey.</p>
+</body>
+</html>

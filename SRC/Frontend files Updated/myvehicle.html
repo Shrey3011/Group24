@@ -1,0 +1,151 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* Change font-family of the whole page */
+    body, html {
+        height: 100%;
+        margin: 0;
+        overflow: auto;
+    }
+
+    /* Heading styles */
+    h1 {
+        color: white !important;
+        font-size: 2em;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        padding: 10px;
+        font-size: 150%;
+        text-align: center; /* Center-align the heading */
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+
+    /* Items in the list */
+    .vehicle-item {
+        
+        padding: 2.5%;
+        display: flex;
+        border-radius: 12px;
+        
+        background-color: #fff;
+        justify-content: center;
+    }
+
+    .vehicle-image {
+        max-width: 250px;
+        margin-right: 2%;
+        border-radius: 8px;
+        max-height: 100px;
+    }
+
+    /* To have the same length of all rows */
+    .vehicle-details {
+        flex: 1;
+        font-size: 1.25em;
+        color: black;
+    }
+
+    /* To stack buttons into a single column */
+    .button-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* To change button size */
+    .button {
+        color: white;
+        padding: 0.5em 2em;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 5%;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    /* Change edit button colour */
+    .edit-button {
+        background-color: #568e63;
+        
+    }
+
+    /* Change remove button color */
+    .remove-button {
+        background-color: #568e63;
+        
+    }
+
+    .msg-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* To make it responsive */
+    @media (max-width: 800px) {
+        .vehicle-image {
+            width: 25%;
+            border-radius: 6px;
+            height: auto;
+            max-height: 20%;
+        }
+
+        .vehicle-list {
+            font-size: 70%;
+        }
+
+        .button {
+            border-radius: 4px;
+        }
+
+        .vehicle-item {
+            border-radius: 6px;
+        }
+
+        .msg-container {
+            font-size: 70%;
+        }
+
+        .heading {
+            color: white;
+        }
+    }
+</style>
+
+<h1>My Vehicles</h1>
+
+<div class="container">
+    {% if len1 != 0 %}
+        <div class="vehicle-list">
+            {% for i in vehicle %}
+                <ul class="vehicle-list">
+                    <li class="vehicle-item shadow ">
+                        <img class="vehicle-image shadow-sm" src="{{i.image.url}}" alt="Car 1">
+                        <div class="vehicle-details">
+                            {{i.company}}
+                            <br>
+                            {{i.model}}
+                            <br>
+                            {{i.price}} Per Day
+                            <br>
+                        </div>
+                        <div class="button-container">
+                            <a href="{% url 'myvehicleview' i.id %}" class="button edit-button shadow-sm">View</a>
+                            <a href="{% url 'delete_vehicle' i.id %}" class="button remove-button shadow-sm"
+                                onclick="return confirm('Confirm Removal')">Remove</a>
+                        </div>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="msg-container">
+            <button class="redirect"><a href="{% url 'addvehicle' %}" class="nav-link active">Add Your First Vehicle
+                    Today!
+                </a>
+            </button>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

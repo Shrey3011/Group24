@@ -1,0 +1,120 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* ... Your existing styles ... */
+
+    .profile-container {
+        display: flex;
+        justify-content: space-around; /* Adjusted to evenly space the elements */
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+
+    .profile-picture {
+        width: 100%;
+        max-width: 200px;
+        height: 200px;
+        background-image: url({{customer.profile_pic.url}});
+        background-size: cover;
+        background-position: center;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px; /* Adjusted margin-top to move the picture down */
+        margin-bottom: 250px;
+        margin-right: 20px;
+        margin-left: auto;
+    }
+
+    .profile-details {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center horizontally */
+    }
+
+    h1 {
+        color: white !important;
+        font-size: 2em;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        padding: 10px;
+        font-size: 150%;
+        text-align: center; /* Center-align the heading */
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+
+    .profile-details-heading {
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 35px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .user-attribute {
+        width: 70%;
+        height: 100%;
+        font-size: 18px;
+        background-color: #f6f9f5;
+        padding: 10px;
+        border-radius: 5px;
+        margin-left: 100px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-left: 5px;
+    }
+
+    .btns-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btns {
+        background-color: #568e63 !important;
+        border-color: #568e63 !important;
+        margin-top: 10px; /* Add margin for spacing */
+        margin-right: 10px; /* Add margin between buttons */
+    }
+
+    .footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-picture shadow"></div>
+   
+    <div class="profile-details">
+        <!-- Profile Details Heading -->
+        <div><h1>Profile Details</h1></div>
+        <div class="shadow user-attribute">First Name: {{customer.firstname}}</div>
+        <div class="shadow user-attribute">Last Name: {{customer.lastname}}</div>
+        <div class="shadow user-attribute">Email: {{customer.email}}</div>
+        <div class="shadow user-attribute">Gender: {{customer.gender}}</div>
+        <div class="shadow user-attribute">Mobile Number: {{customer.contact_no}}</div>
+        <div class="shadow user-attribute">City: {{customer.city}}</div>
+        <div class="shadow user-attribute">State: {{customer.state}}</div>
+        <div class="shadow user-attribute">Country: {{customer.country}}</div>
+        <div class="btns-container">
+            <a href="{% url 'change_password' %}" class="btn btn-info btns" role="button">Change Password</a>
+            <a href="{% url 'edit_profile' %}" class="btn btn-info btns" role="button">Edit Profile</a>
+        </div>
+        <hr>
+    </div>
+</div>
+
+{% endblock %}

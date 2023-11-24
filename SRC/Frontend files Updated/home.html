@@ -1,0 +1,57 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body, section{
+        margin: 0;
+        padding: 0;
+    }
+    .icon-hover:hover {
+        border-color: #3b71ca !important;
+        background-color: white !important;
+    }
+
+    .icon-hover:hover i {
+        color: #3b71ca !important;
+    }
+
+    .product{
+        border-radius: 10px;
+    }
+
+    .container{
+        margin-top: 0%; 
+        padding-top: 0%;
+    }
+</style>
+
+
+<section>
+    <div class="container my-5">
+        <div class="row">
+            {% for i in vehicle %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class=" my-2 shadow product card" style="background-color: #D9E5D6;">
+                    <a href="{% url 'productview' i.id %}" class="img-wrap">
+                        <img src="{{i.image.url}}" class="card-img-top" style="aspect-ratio: 1.25 / 1">
+                    </a>
+                    <div class="card-body p-0 pt-2">
+                        
+                        <h5 class="card-title" style="margin-left: 10px; margin-bottom: 1;">{{i.company}} {{i.model}}</h5>
+                        <p class="card-text mb-0" style="margin-left: 10px;">Price(per day): Rs.{{i.price}}</p>
+                        
+                    </div>
+                    <div class="card-footer d-flex align-items-center pt-3 px-1 pb-0 mt-auto">
+                      <a href="{% url 'productview' i.id %}" class="btn btn-primary shadow-0 me-1"
+                        style="margin-left: 6px;margin-bottom: 15px; width: 240px; background-color: #568e63; border-color: #568e63;">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+

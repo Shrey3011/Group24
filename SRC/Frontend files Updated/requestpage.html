@@ -1,0 +1,224 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+<html>
+
+<head>
+     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .th {
+            display: flex;
+            align-items: center;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+             vertical-align: middle;
+         }
+
+         .btns{
+            background-color: #568e63 !important;
+            border-color: #568e63 !important;
+         }
+    </style>
+</head>
+{% if len1 != 0 or len2 != 0 or len3 != 0 or len4 != 0 %}
+{% if len1 > 0 %}
+  <body>
+     <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Pending Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests1 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img class="card shadow-sm" src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"class="btn btn-default"><b>{{i.vehicle.model}}</b></a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}"class="btn btn-default"><b>{{i.vehicle.owner}}</b></a></td>
+                            <td><a href="{% url 'delete_request' i.id %}"class="btn btn-danger btns" role="button">Delete Request</a></td>
+                         </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if len2 > 0 %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Accepted Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests2 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img class="card shadow-sm" src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"class="btn btn-default"><b>{{i.vehicle.model}}</b></a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}"class="btn btn-default"><b>{{i.vehicle.owner}}</b></a></td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if len3 > 0 %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Rejected Requests</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests3 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img class="card shadow-sm" src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"class="btn btn-default"><b>{{i.vehicle.model}}</b></a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.vehicle.owner.id %}" class="btn btn-default"><b>{{i.vehicle.owner}}</b></a></td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if len4 > 0 %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Requests For Your Vehicle</h2>
+            <div class="table-responsive">
+                <table class="table border-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Vehicle Name</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">No of Days</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Seeker</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests4 %}
+                        <tr>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"><img class="card shadow-sm" src="{{i.vehicle.image.url}}"
+                                        style="height: 150px;width: 200px;"></img></a>
+                            </td>
+                            <td><a href="{% url 'productview' i.vehicle.id %}"class="btn btn-default"><b>{{i.vehicle.model}}</b></a></td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.end_date}}</td>
+                            <td>{{i.number_of_days}}</td>
+                            <td>{{i.total}}</td>
+                            <td>{{i.status}}</td>
+                            <td><a href="{% url 'profilepath' i.seeker.id %}" class="btn btn-default"><b>{{i.seeker}}</b></a></td>
+                            <td><a href="{% url 'accept_request' i.id %}" class="btn btn-success btns" role="button">Accept Request</a>
+                            <td><a href="{% url 'delete_request' i.id %}" class="btn btn-danger btns" role="button">Reject Request</a>
+                         </tr>
+                        {% endfor %}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+</body>
+    {% endif %}
+    {% else %}
+    <div class="container-fluid">
+        <div class="container">
+            <h2 class="mb-4">Requests Yet To Come</h2>
+            <div class="table-responsive">
+        </div>
+        </div>
+        </div>
+    {% endif %}
+</html>
+
+{% endblock %}

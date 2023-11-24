@@ -1,0 +1,147 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+
+  <div id="includeHtml"></div>
+  <style>
+      /* ... (existing styles remain unchanged) ... */
+
+      body {
+          /* Keep your existing styles */
+          display: flex;
+          justify-content: center; /* Center content horizontally */
+          align-items: center; /* Center content vertically */
+          height: 110vh; /* Use the full height of the viewport */
+          margin:0%;
+      }
+
+      h1{
+        color: white !important;
+      }
+
+      .form-group {
+          display: flex;
+          flex-direction: row; /* Change to display elements in a row */
+          align-items: center; /* Align items vertically */
+          margin-bottom: 15px;
+      }
+
+      label {
+          font-family: 'Josefin Slab';
+          font-size: 18px;
+          margin-right: 10px; /* Add some space between labels and input fields */
+          width: 120px; /* Set a fixed width for labels */
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select {
+          flex: 1; /* Allow input fields to take up remaining space */
+          height: 35px;
+          font-family: 'Josefin Slab';
+          font-size: 20px;
+          padding: 5px;
+          border: 1px solid #BFC0C0;
+          border-radius: 5px;
+      }
+
+      /* Adjustments for the file input */
+      .img {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-family: 'Josefin Slab';
+          margin-bottom: 0%;
+          text-align: left;
+      }
+
+      .profile-details {
+          flex: 1;
+          padding: 50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center; /* Center content vertically */
+          align-items: center; /* Center content horizontally */
+      }
+
+      .edit-profile-form {
+          width: 100%;
+          max-width: 600px; /* Limit form width to maintain readability */
+          margin-top: 20px
+      }
+
+      input[type="file"] {
+          flex: 1;
+          margin-left: 10px; /* Add some space between button and input */
+          padding: 5px;
+          border: 1px solid #bfc0c0;
+          border-radius: 4px;
+          font-family: 'Josefin Slab', sans-serif;
+          max-width: calc(100% - 80px); /* Adjust width considering the button */
+      }
+
+      .btns{
+        
+        background-color: #568e63 !important;
+        border-color: #568e63 !important;
+      }
+
+  </style>
+
+
+  <div class="col-lg-8">
+  <div class="profile-details justify-content-center">
+      <div class="header-container">
+          <h1>Edit Profile</h1>
+      </div>
+      {{form.errors}}
+      <form class="edit-profile-form" method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <label for="firstname">First Name:</label>
+              <input type="text" id="firstname" value="{{customer.firstname}}" name="firstname" required>
+          </div>
+          <div class ="form-group">
+              <label for="lastname">Last Name:</label>
+              <input type="text" id="lastname" name="lastname" value="{{customer.lastname}}" required>
+          </div>
+          <div class="form-group">
+              <label for="gender">Gender:</label>
+              <select id="gender" name="gender" required>
+                  <option value="Male" {% if customer.gender == 'Male' %}selected="selected"{% endif %}>Male</option>
+                  <option value="Female" {% if customer.gender == 'Female' %}selected="selected"{% endif %}>Female</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="contact_no">Mobile Number:</label>
+              <input type="text" id="contact_no" value="{{customer.contact_no}}" name="contact_no">
+          </div>
+          <div class="form-group">
+              <label for="city">City:</label>
+              <input type="text" id="city" value="{{customer.city}}" name ="city">
+          </div>
+          <div class="form-group">
+              <label for="state">State:</label>
+              <input type="text" id="state" value="{{customer.state}}" name="state">
+          </div>
+          <div class="form-group">
+              <label for="country">Country:</label>
+              <input type="text" id="country" value="{{customer.country}}" name="country">
+          </div>
+
+            <div class="form-group">
+                <label class="img">Profile Picture:
+                   <input type="file" class="img" name="profile_pic" accept="image/*">
+                </label>
+            </div>
+            
+          </div>
+         <div>
+         <input type="submit" class="btn-lg btn-info btns" value="Submit" style="width: 100%;">
+        </div>
+      </form>
+  </div>
+  </div>
+
+{% endblock %}

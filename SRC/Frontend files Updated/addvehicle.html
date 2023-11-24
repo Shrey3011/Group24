@@ -1,0 +1,264 @@
+{% extends 'RentingApp/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* Global */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: auto;
+}
+
+/* H3 */
+h3 {
+
+    text-align: center;
+}
+
+/* H1 */
+.basic {
+    text-align: center;
+    margin-top: 3%;
+    margin-right: 15%;
+    margin-left: 15%;
+    font-size: 300%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    align-items: center;
+    margin-bottom: 0;
+    
+    color: white;
+}
+
+/* Text */
+p {
+
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+/* Form */
+.form {
+    
+    margin-right: 15%;
+    margin-left: 15%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1%;
+    
+}
+
+/* Additional Info */
+.addinfo {
+    width: 75%;
+    margin: auto;
+    margin-bottom: 2%;
+    padding: 10px;
+    border: 2px solid #bfc0c0;
+    border-radius: 4px;
+
+}
+
+/* Text Boxes and Select */
+input[type="text"],
+input[type="number"],
+.fuel {
+    width: 25%;
+    margin: auto;
+    margin-bottom: 2%;
+    padding: 1%;
+    border: 2px solid #568e63;
+    border-radius: 4px;
+
+    max-width: 25%;
+}
+
+/* To make 2 columns of the textboxes */
+ul {
+
+
+    justify-content: center;
+    list-style: none;
+}
+
+li {
+
+
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+}
+
+.img-list {
+
+    justify-content: center;
+}
+
+/* Images Upload */
+input[type="file"] {
+    justify-content: center;
+    margin-left: 15%;
+    height: auto;
+    font-size: 12px;
+}
+
+/* Images Label */
+img {
+    width: 200px;
+    height: auto;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.img {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.img-edit {
+
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+/* Terms and conditions */
+.terms {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+/* Buttons */
+.bt {
+
+    margin-right: 5%;
+    justify-content: center;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 868px) {
+
+    button,
+    input[type="file"],
+    .form,
+    .txtbox,
+    .fuel,
+    .addinfo,
+    .img,
+    .cbx {
+
+        font-size: 80%;
+
+    }
+
+    .basic{
+
+        font-size: 150%;
+    }
+
+    input[type="checkbox"] {
+
+        width: 4%;
+        height: auto;
+    }
+
+    .terms {
+
+        font-size: 60%;
+    }
+
+    img {
+
+        width: 80px;
+        height: auto;
+        border-radius: 4px;
+        max-height: 80%;
+    }
+
+    .im1 {
+
+        font-size: 45%;
+    }
+
+    .btns{
+        background-color: #568e63 !important;
+        border-color: #568e63 !important;
+    }
+
+
+}
+</style>
+
+<!--Basic Info-->
+<h1 class="basic">Add Vehicle</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Basic Info Form -->
+    <div class="form">
+        <ul>
+            <li>
+                <input type="text" class="txtbox" value="{{vehicle.company}}" name="company" placeholder="Company:"
+                    required>
+                <input type="text" class="txtbox" value="{{vehicle.model}}" name="model" placeholder="Model:" required>
+            </li>
+
+            <li>
+                <select class="fuel" name="fuel" selected="{{vehicle.fuel_type}}" placeholder="Fuel type:" required>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <input type="number" class="txtbox" min="1" value="{{vehicle.seats}}" name="capacity"
+                    placeholder="Seating Capacity:" required>
+            </li>
+
+            <li>
+                <input type="text" class="txtbox" value="{{vehicle.city}}" name="city" placeholder="City:" required>
+                <input type="text" class="txtbox" value="{{vehicle.state}}" name="state" placeholder="State:" required>
+            </li>
+
+            <li>
+                <textarea class="addinfo" name="additionalInfo" placeholder="{{vehicle.about}}" rows="4"></textarea>
+            </li>
+
+            <li>
+                <input type="number" class="txtbox" min="1" value="{{vehicle.price}}" name="price"
+                    placeholder="Price (per day):" required>
+            </li>
+
+            <li class="img-list">
+                <div class="img">
+                    <label class="img">Image:<input type="file" class="im" name="img" accept="image/*" required></label>
+                </div>
+            </li>
+
+
+
+            <!-- Terms and Condition -->
+            <li class="terms">
+                <label><input type="checkbox" class="cbx" name="checkbox1" required> I hereby declare that the
+                    information
+                    provided is true to the best of my knowledge. I also understand that any willful dishonesty may
+                    render
+                    for refusal of this application or immediate termination of my account.</label>
+                <label><input type="checkbox" class="cbx" name="checkbox2" required> I have read and agree to the Terms
+                    and
+                    Conditions.</label>
+            </li><br>
+
+            <li class="bt">
+                <button class="btn btn-info" style="background-color: #568e63 !important; border-color: #568e63 !important;" onclick="return confirm('Confirm Submition')">Save</button>        </ul>
+    </div>
+</form>
+
+<br>
+<!-- <hr> -->
+<!--end of Basic Info-->
+
+{% endblock %}
