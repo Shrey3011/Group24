@@ -1,3 +1,5 @@
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +19,13 @@
 </head>
 <body>
     <style>
+		body{
+      background-image:url("{% static 'images/bg2.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      /* backdrop-filter: blur(3px); */
+    }
         .divider:after,
             .divider:before {
             content: "";
@@ -28,51 +37,42 @@
             position: relative;
             left: 0%;
         }
+        p{
+          color: white;
+        }
     </style>
    <section class="vh-100">
     <div class="container py-4 h-100">
       <div class="row d-flex align-items-center justify-content-center h-100 w-auto">
-        <div class="col-md-7 col-lg-5 col-xl-6">
-          <img src="{% static 'images/signin-image.png' %}"  style="width: 587px; height: 500px; flex-shrink: 0%;"
-            class="img-fluid" alt="Phone image">
-        </div>
-        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-0" >
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-0">
+			<br>
             <div>
-                <h1 style="font-family: 'Josefin Slab', serif;font-size:60px;font-weight: 150;color: rgb(1, 1, 14);"><center>Login</center></h1>
+                <h1 style="font-family: 'Josefin Slab', serif;font-size:60px;font-weight: 150;color:green"><center>Login</center></h1>
             </div>
-            <br><br>
+            <br>
             <form method="POST" action="">
                 {% csrf_token %}
-            <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="text" name="username" placeholder="Username" id="form1Example13" class="form-control form-control-lg" />
+              <input type="text" name="username" placeholder="Username" id="form1Example13" class="form-control form-control-lg" required style="color:rgb(7, 172, 7);"/>
             </div>
-            <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" name="password" placeholder="Password" id="form1Example23" class="form-control form-control-lg" />
+              <input type="password" name="password" placeholder="Password" id="form1Example23" class="form-control form-control-lg" required style="color:rgb(7, 172, 7);"/>
             </div>
-            <br>
+            
             <div class="d-flex justify-content-around align-items-center mb-4">
-              <!-- Checkbox -->
-              <!-- <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                <label class="form-check-label" for="form1Example3"> Remember me </label>
-              </div> -->
-              <a href="{% url 'password_reset' %}">Forgot password?</a>
-              <a href="{% url 'register' %}">Sign Up</a>
+              <a href="{% url 'password_reset' %}" style="color: lightgreen;">Forgot password?</a>
+              <a href="{% url 'register' %}" style="color: lightgreen;">Sign Up</a>
             </div>
-            <br>
+        
 
 			{% for message in messages %}
                     <p id="messages">{{message}}</p>
             {% endfor %}
-  
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg mb-4" style="width:100%;">Sign in</button>  <!--style="width: 398px;"--->
+            <button type="submit" class="btn btn-success btn-lg mb-4" style="width:100%;">Sign in</button>
           </form>
         </div>
       </div>
     </div>
   </section>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </html>
