@@ -1,8 +1,7 @@
 {% extends 'RentingApp/main.html' %}
-
+{% load static %}
 {% block content %}
 
-<!-- Page Contains History of User's Vehicles -->
 
 <html>
 <head>
@@ -36,8 +35,8 @@
 }
 .table th,
 .table td {
-  text-align: center; /* Center text horizontally */
-  vertical-align: middle; /* Center text vertically */
+  text-align: center; 
+  vertical-align: middle;
 }
   </style>
 </head>
@@ -64,15 +63,14 @@
                 <tr>
                     <td><a href="{% url 'productview' i.vehicle.id %}"><img src="{{i.vehicle.image.url}}"
                         style="height: 150px;width: 200px;"></img></a>
-                  <td><a href="{% url 'productview' i.vehicle.id %}">{{i.vehicle.model}}</a></td>
+                  <td><a href="{% url 'productview' i.vehicle.id %}"class="btn btn-default"><b>{{i.vehicle.model}}</b></a></td>
                     <td>{{i.start_date}}</td>
                     <td>{{i.end_date}}</td>
                     <td>{{i.total}}</td>
-                    <td><a href="{% url 'profilepath' i.seeker.id %}">{{i.seeker}}</a></td>
+                    <td><a href="{% url 'profilepath' i.seeker.id %}"class="btn btn-default"><b>{{i.seeker}}</b></a></td>
                 </tr>
                 {% endfor %}
 
-                <!-- Add more rows as needed -->
               </tbody>
             </table>
           </div>
